@@ -1,435 +1,436 @@
-<h1><p align="center">VA产品说明&开发指导</p></h1> 
+<h1><p align="center">VA Product description & Development guidance</p></h1> 
 
-## VA是什么? ##
-VirtualApp(简称：VA)是一款运行于Android系统的沙盒产品，可以理解为轻量级的“Android虚拟机”。其产品形态为高可扩展，可定制的集成SDK，您可以基于VA或者使用VA定制开发各种看似不可能完成的项目。VA目前被广泛应用于APP多开、小游戏合集、手游加速器、手游租号、手游手柄免激活、区块链、移动办公安全、军队政府数据隔离、手机模拟信息、脚本自动化、插件化开发、无感知热更新、云控等技术领域。<br> **Github上代码已在2017年12月份停止更新，商业版代码在持续更新中，如需授权获得最新代码，请联系微信：10890**
+## What is VA? ##
+VirtualAPP (abbreviation: VA) is a sandbox product running on Android system, which can be understood as a lightweight "Android virtual machine". Its product form is a highly extensible, customizable, integrated SDK that allows you to develop a variety of seemingly impossible projects based on or using VA. Now, VA is widely used in in many technology fields as following: mini game collection, blockchain, cloud control, silent hot fix and so on. On the one hand, you can realize cloud control mobile office security and achieve military and government data isolation with VA. On the other hand, you can implement script automation, device-info-mock, and plug-in development. Meanwhile, you can realize multi space and games booster. You can also rent the mobile game account and use the mobile controller without activation by VA. <br> **The code on Github has stopped updating in December 2017. The code of commercial version is continuously being updated. If you need license to obtain the latest code, please contact WeChat: 10890.**
 
 
-## VA中的术语 ##
-术语 | 解释
+## Terminology in VA ##
+Terminology | Explanation
 ---- | ---
-宿主 | 集成VirtualApp类库（lib）的App叫做宿主  
-宿主插件 | 用于在同一个手机,运行另一种ABI的宿主包,又称做插件包,扩展包,宿主插件包,宿主扩展包
-虚拟App/VApp | VA的虚拟环境多开的app
-外部App | 手机真实环境安装的app
+Host | The APP that integrates the VirtualAPP class library (lib) is called a host.  
+Host Plug-in | A host package is used to run another ABI on the same phone. It also called plug-in package, extension package, host plug-in package, host extension package.
+Virtual APP / VAPP | Multi space in VA's virtual environment
+External APP | APP installed in the real environment of the mobile phone
 <br/>
 
-## VA技术架构 ##
+## VA Technical architecture ##
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/va_architecture.jpg)  
-VA技术一共涉及到了Android的APP层，Framework层以及Native层。  
-一个APP想要在Android系统上运行，必须要安装后系统才会接纳。安装到VA内部的APP实际上并没有安装到系统中，所以正常情况下是无法运行的。那如何才能让它运行呢？  
-答：那就只有“欺骗”系统，让系统认为已经安装。而这个“欺骗”过程就是VA Framework的核心工作内容，也是整个VA的核心技术原理。  
+VA technology involves the APP layer, Framework layer and Native layer of Android in total.
+An APP wants to run on Android, the system will accept it after installing. The APP installed inside the VA is not actually installed into the system, it can't run under the normal circumstance. So how to get it to run?
+Answer: The only way to do this is to "trick" the system into thinking it has been installed. This "deception" process is the core work of the VA Framework, and is also the core technical principle of the VA.  
 
-**下面介绍下在这3个层次分别做了什么事情：**
+**Here is the description of what did each layer do:**
 
-层次 | 主要工作
+Layer | Main work
 ---- | ---
-VA Space | 由VA提供了一个内部的空间，用于安装要在其内部运行的APP，这个空间是系统隔离的。
-VA Framework | 这一层主要给Android Framework和VAPP做代理，这也是VA的核心。VA提供了一套自己的VA Framework，处于Android Framework与VA APP之间。</br>1. 对于VAPP，其访问的所有系统Service均已被 `VA Framework` 代理，它会修改VAPP的请求参数，将其中与VAPP安装信息相关的全部参数修改为宿主的参数之后发送给Android Framework（有部分请求会发送给自己的VA Server直接处理而不再发送给Android系统）。这样Android Framework收到VAPP请求后检查参数就会认为没有问题。</br>2. 待Android系统对该请求处理完成返回结果时，VA Framework同样也会拦截住该返回结果，此时再将原来修改过的参数全部还原为VAPP请求时发送的。</br>这样VAPP与Android系统的交互也就能跑通了。
-VA Native | 在这一层主要为了完成2个工作，IO重定向和VA APP与Android系统交互的请求修改。</br>1. IO重定向是因为可能有部分APP会通过写死的绝对路径访问，但是如果APP没有安装到系统，这个路径是不存在的，通过IO重定向，则将其转向VA内部安装的路径。</br>2. 另外有部分jni函数在VA Framework中无法hook的，所以需要在native层来做hook。
+VA Space | An internal space is provided by the VA for the installation of the APP to be run inside it, and this space is system isolated.
+VA Framework | This layer is mainly a proxy for Android Framework and VAPP, which is the core of VA. And VA provides a set of VA Framework of its own, which is between Android Framework and VA APP. </br>1. For VAPP, all the system services it accesses have been proxied by VA Framework, which will modify the request parameters of VAPP and send all the parameters related to VAPP installation information to Android Framework after changing them to the parameters of the host （Some of the requests will be sent to their own VA Server to be processed directly, and no longer send to the Android system）. This way Android Framework receives the VAPP request and checks the parameters, and it will think there is no problem.</br>2. When the Android system finishes processing the request and returns the result, the VA Framework will also intercept the return result and restore all the parameters that have been original modified to those that were sent during the VAPP request. This way the interaction between VAPP and Android system can work.
+VA Native | The main purpose of this layer is to accomplish 2 tasks: IO redirection and the request modification for VA APP to interact with Android system. </br>1. IO redirection is some APPs may be accessed through the hard code absolute path. But if the APP is not installed to the system, this path does not exist. Through IO redirection, it will be redirected to the path to install inside VA.</br>2. In addition, there are some jni functions that cannot be hooked in VA Framework, so they need to be hooked in the native layer.
 </br>
 
-总结：
-通过上面技术架构可以看到，VA内部的APP实际是跑在VA自己的VA Framework之上。
-VA已将其内部APP的全部系统请求进行拦截，通过这项技术也能对APP进行全面控制，而不仅仅只是多开。并且为了方便开发者，VA还提供了SDK以及Hook SDK。  
+In summary:
+As you can see from the above technical architecture, the internal VA APP actually runs on top of VA's own VA Framework. VA has intercepted all system requests from its internal APP, and through this technology it can also have full control over the APP, not just the multi space. And for the convenience of developers, VA also provides SDK and Hook SDK.
 
 
-## VA进程架构 #
+## VA Process architecture#
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/va_process.jpg)    
-VA运行时有5类进程：CHILD进程，VA Host Main进程，VA Host Plugin进程，VAPP Client进程，VAServer进程。
-VA为了同时支持32位APP与64位APP，需要安装2个包：一个主包，一个插件包(在本文档中主包是32位，插件包是64位)。
-2个包也是必须的，因为一个包只能运行在一种模式下，要么32位，要么64位。所以对于32位的APP，VA使用32位的主包去运行，对于64位的APP，VA则使用64位的插件包去运行。
-在主包中含了VA的所有代码，插件包中只有一段加载主包代码执行的代码，无其他代码。所以插件包几乎不用更新，只需要更新主包即可。
-另外主包是选择用32位还是64位，可以在配置文件中修改(比如对于要上GooglePlay的用户，会修改为主包64位，插件包32位)。
+There are five types of processes in the VA’s runtime: CHILD process, VA Host Main process, VA Host Plugin process, VAPP Client process, and VAServer process. 
+To support both 32-bit and 64-bit APPs, VA needs to install two packages: a master package and a plug-in package ( In this document, the main package is 32 bits and the plug-in package is 64 bit ).
+Two packages are also necessary because a package can only run in one mode, either 32-bit or 64-bit. So for 32-bit APPs, VA uses the 32-bit main package to run, and for 64-bit APPs, VA uses the 64-bit plug-in package to run.
+The main package contains all the code of VA, and the plug-in package contains only one piece of code that loads the main package code for execution, no other code. So plug-in package rarely needs to be updated, just the main package. 
+In addition, whether the main package is chosen to use 32-bit or 64-bit can be modified in the configuration file ( For example, for users who want to access GooglePlay, it will be modified to 64-bit for the main package and 32-bit for the plug-in package ).
 
-**各类进程的作用与解释如下：**</br>
+**The functions and explanations of the each type of process are as follows:**</br>
 
-进程类型 | 作用
+Process Type | Function
 ---- | ---
-CHILD | 由VA Host集成的其他进程，比如：保活进程，推送进程等。
-VA Host Main | VA主包的UI主界面所在的进程。默认主包是32位，插件包是64位，可在配置文件中修改切换。
-VA Host Plugin | 支持64位APP的插件包所在进程。默认主包是32位，插件包是64位，可在配置文件中修改切换。
-VAPP Client | 安装到VA中的APP启动后产生的进程，在运行时会将io.busniess.va:pxxx进程名修改VAPP的真实进程名。
-VAServer | VA Server的所在的进程，用于处理VA中不交予系统处理的请求。比如APP的安装处理。
+CHILD | Other processes integrated by VA Host, such as: keepalive process, push process, etc.
+VA Host Main | The process where the UI main interface of the VA main package is located. The default main package is 32-bit and the plug-in package is 64-bit, which can be modified and switched in the configuration file
+VA Host Plugin | The process that supports the plug-in package of 64-bit APP. The default main package is 32-bit and the plug-in package is 64-bit, which can be modified and switched in the configuration file.
+VAPP Client | The process generated by the APP installed into VA after it starts, it will modify io.busniess.va:pxxx process name to the real process name of VAPP when it runs.
+VAServer | The process where the VA Server is located, it is used to handle requests in VA that are not assigned to the system for processing, such as APP installation processing.
 <br/>
 
-## VA几乎能满足您的一切需求 ##
-通过上面的技术架构，我们可以了解到VA可以对APP进行全面的控制，并且提供了Hook SDK，几乎能满足您在各个领域的一切需求：  
-1. 可以满足您的**双开/多开**需求    
-VA可以让您在同一部手机上安装多个微信/QQ/WhatsApp/Facebook等APP，实现一部手机，多个账号同时登录。  
+## VA can satisfy almost all your needs ##
+Through the above technical architecture, we can know that VA can fully control APP and provide Hook SDK, which can satisfy almost all your needs in various fields: 
 
-2. 可以满足您的**移动安全**需求  
-VA提供了一整套内部与外部的隔离机制，包括但不限于(文件隔离/组件隔离/进程通讯隔离)，简单的说VA内部就是一个“完全独立的空间”。
-通过VA可将工作事务与个人事务安全的隔离，互不干扰。稍作定制即可实现应用行为审计、数据加密、数据采集、数据防泄漏、防攻击泄密等移动安全相关的需求。    
-    **2.1 应用行为审计**  
-通过VA提供的HOOK能力可以实现实时监测用户使用行为，将违规信息上传到服务器；并能轻易实现诸如时间围栏(在某个时间段内能否使用应用的某个功能)、地理围栏(在某个区域内能否使用应用的某个功能)、敏感关键字过滤拦截等功能需求。  
-	**2.2 数据加密**  
-通过VA提供的HOOK能力可以实现对应用的全部数据/文件加密，保证数据/文件落地安全。   
-	**2.3 数据采集**  
-通过VA提供的HOOK能力可以实现应用数据的实时无感上传需求，如聊天记录、转账记录等，防止事后删除无法追溯。  
-	**2.4 数据防泄漏**  
-通过VA提供的HOOK能力可以实现应用防复制/粘贴、防截屏/录屏、防分享/转发、水印溯源等需求。   
-	**2.5 防攻击泄密**  
-通过VA提供的应用管控能力可以将APP获取短信/通讯录/通话记录/后台录音/后台拍照/浏览历史/位置信息等隐私相关的行为完全控制在沙盒中，防止木马/恶意APP获取到用户真实的隐私数据，造成泄密等严重后果。  
+1. Satisfy the need of** double/multi space**   
+VA allows you to install multiple WeChat/QQ/WhatsAPP/Facebook and other APPs on the same mobile phone, so you can have one phone with multiple accounts logged in at the same time.  
 
-3. 可以满足您的**免ROOT HOOK**需求  
-VA提供了Java与Native的Hook能力，通过VA，您可以轻易实现诸如虚拟定位、改机、APP监控管理、移动安全等各种场景需要的功能。  
+2. Satisfy the need of** mobile security**  
+VA provides a set of internal and external isolation mechanisms, including but not limited to (file isolation / component isolation / process communication isolation). Simply speaking, VA internal is a "completely independent space". 
+Through VA, work affairs and personal affairs can be safely separated without mutual interference. With a little customization, you can achieve mobile security-related needs such as application behavior audit, data encryption, data acquisition, data leakage prevention, anti-attack leaks and so on.    
+    **2.1 Application behavior audit**  
+The HOOK capability provided by VA can realize real-time monitoring of user usage behavior and upload violation information to the server. And it's easy to implement things like Time Fence ( whether a feature of the APP can be used in a certain time ), Geo Fence ( whether a feature of the APP can be used in a certain area ), sensitive keyword filtering interception and other functional requirements.
+	**2.2 Data encryption**  
+The HOOK capability provided by VA can realize all data/file encryption of the application, ensuring data/file landing security.
 
-4. 可以满足您的**APP静默安装**需求  
-VA提供了APP静默安装，静默升级，静默卸载的能力。如应用商店或游戏中心在集成VA后可以避免需要用户手动点击确认安装的操作，做到下载后立即安装到VA内，给用户带来“小程序”搬的体验，彻底避免了应用不易被用户安装上的问题。  
+	**2.3 Data acquisition**  
+The HOOK capability provided by VA can realize the demand for real-time silent upload of application data, such as chat records and transfer records, preventing them from being deleted afterwards without traceability.  
+	**2.4 Data leakage prevention**  
+The HOOK capability provided by VA can realize application anti-copy/paste, anti-screenshot/recording, anti-sharing/forwarding, watermark traceability and other requirements.   
+	**2.5 Anti-attack leaks**  
+With the application control capability provided by VA, privacy-related behaviors such as SMS/ address book/call log/ background recording/background photo/ browsing history and location information can be completely controlled in sandbox, prevent Trojan horses/malicious APPs from acquiring users' real private data, causing serious consequences such as leakage of secrets.
+3. Satisfy the need of** ROOT without HOOK **  
+VA provides Hook capability of Java and Native. With VA, you can easily achieve functions required by various scenarios, such as virtual positioning, changing device, APP monitoring and management, mobile security and so on.  
 
-5. 可以满足您的**APP管控**需求  
-您可以通过VA清楚的掌握APP访问了哪些系统API，哪些敏感数据，哪些设备信息等。比如APP是否访问了联系人，相册，通话记录，是否访问了用户的地理位置等信息。
-当然，您还可以通过VA控制或者构造自定义的信息给这些APP。不仅于此，您还可以获取到APP的私有数据，比如聊天数据库等。总之通过VA提供的应用管控能力，您可以轻易控制APP的一切行为，甚至修改APP与服务器交互内容等。  </br>
+4. Satisfy the need of** silent installation **  
+VA provides the ability to silently install, silently upgrade and silently uninstall APPs. For example, the application store or game center can be integrated with VA to avoid the need for users to manually click to confirm the installation operation, so that it can be installed into VA immediately after downloading, bringing users an experience like "small program" , completely avoiding the problem of applications not easily installed by users.  
 
-
-6. 可以满足您的**海外市场**需求  
-VA实现了对Google服务的支持，以支持海外的App运行，比如Twitter、Messenger、WhatsApp、Instagram、FaceBook、Youtube等。  
-
-7. 可以满足您**几乎一切能想到**的需求  
-VA对于内部的App具有完全的监管和控制能力，几乎能满足您的一切需求！
-
-8. 同时VA也是该技术领域__唯一一款__对外商业授权的产品    
-截止目前已有**上百家**授权客户在付费使用VirtualApp商业版代码，集成VirtualApp代码的APP__日启动__次数__超过2亿次__，众多安卓工程师向我们提供不同场景下的用户反馈，通过我们技术团队不断优化迭代，不断提升产品性能与兼容性！
+5. Satisfy the need of** APP controlled ** 
+You can clearly grasp the system API, sensitive data, device information, etc. accessed by the APP through VA. For example, whether the APP accesses the contacts, photo albums, call log, whether it accesses the user's geographic location and other information.
+Of course, you can also control or construct custom messages to these APPs via VA, and not only that, you can also get access to the APP's private data, such as chat database and so on. In a word, through the application control capability provided by VA, you can easily control all the behaviors of the APP, even modify the content of the APP and server interaction and so on .  </br>
 
 
-VA的特有能力
+6. Satisfy the need of** overseas markets **  
+VA implements support for Google services to support overseas APPs running, such as Twitter, Messenger, WhatsAPP, Instagram, FaceBook, Youtube and so on.
+
+7. Satisfy the need of** almost everything you can think of **  
+VA has complete oversight and control over the internal APP, and can meet almost any of your needs！
+8. 8.VA is also the only commercially licensed product in this technology area   
+**Hundreds of** licensed customers are currently paying to use the commercial version of VirtualAPP code, and the APP integrated with VirtualAPP code is launched more than 200 million times per day. Many Android engineers provide us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, we continue to improve product performance and compatibility.
+
+
+VA Specialized capabilities
 ---
 
-- 克隆能力<br/>
-可以克隆外部系统中已经安装的App，并在内部运行，互不干扰。典型应用场景为App双开。
+- Cloning ability<br/>
+You can clone the APP already installed in the external system and run it internally without mutual interference. Typical application scenario is double space.
 
-- 免安装能力<br/>
-除了克隆已安装之外，VA可以直接在内部安装(外部无感知)apk，并在内部直接运行。典型应用场景为插件化，独立应用市场等。
+- Without installation ability<br/>
+In addition to cloning already installed, VA can install (externally silent ) apk's directly internally and run them directly internally. Typical application scenarios are plug-in, standalone APP marketplace and so on.
 
-- 多开能力<br/>
-VA不仅可以“双开”，独特的多用户模式支持用户在内部无限多开同一个App。
+- Double space ability<br/>
+VA is not only "double space", but also has a unique multi-user mode that allows users to open the same APP internally for an unlimited number of times.
 
-- 内外隔离能力<br/>
-VA是一个标准的沙盒，或者说“虚拟机”，提供了一整套内部与外部的隔离机制，包括但不限于(文件隔离/组件隔离/进程通讯隔离)，简单的说VA内部就是一个“完全独立的空间”。在此基础之上，稍作定制即可实现一部手机上的“虚拟手机”。当然您也可以发挥想象，定制成应用于数据加密，数据隔离，隐私保护，企业管理的应用系统。
+- Internal and external isolation ability<br/>
+VA is a standard sandbox, or "virtual machine", that provides a set of internal and external isolation mechanisms, including but not limited to (file isolation/component isolation/process communication isolation). Simply put, the inside of a VA is a "completely separate space". Simply put, the inside of a VA is a "completely separate space". Based on it, you can realize a "virtual phone" on your cell phone with a little customization. Of course, you can also use your imagination to customize it for data encryption, data isolation, privacy protection, and enterprise management applications.
 
-- 对于内部App的完全控制能力<br/>
-VA对于内部的App具有完全的监控和控制能力，这点在未Root的外部环境中是绝对无法实现的。
+- Full control over internal APPs ability<br/>
+VA has complete monitoring and control over the internal APP, which is absolutely impossible to achieve in an external environment without Root.
+
 <details>
-<summary>详细(下拉打开)</summary>
-  1. 服务请求控制，首先VA直接提供了一些服务请求的拦截，您可以在集成VA的时候方便的定制这些服务请求，包括但远不限于(App请求安装apk/App请求打开某些文件/App请求定位数据/App请求手机信息等等)<br/><br/>
-  2. 系统API控制，VA虚拟并实现了整个安卓系统框架，这也是VA可以免安装在内部运行apk的原理，您可以对虚拟框架的实现进行修改以动态监测分析App的行为等；除此之外，您还可模拟一些系统行为以实现一些在外部难以实现的需求(例如游戏手柄)。<br/><br/>
-  3. 内存读写，VA可以无需Root读写内部App进程的内存。<br/><br/>
-  4. 免Root调试，VA可以免Root调试(ptrace)内部的App进程，基于此您还可以实现免Root的进程注入。<br/><br/>
-  5. 加载任意“插件”和“行为”，VA内部的App进程由VA的框架Client端代码派生而来，所以您可以在进程的入口代码插入任何“加载”以及“控制”逻辑。这些实现都非常简单。<br/><br/>
-  6. 方法Hook，VA内置了一套运行于Android各个版本(直到AndroidQ)的Xposed框架以及native hook框架，基于此您可以方便的Hook任意内部App的任意Java/Native方法。可以轻松实现一个免Root的Xposed环境(有实例代码)。<br/><br/>
-  7. 文件控制，VA内置了完整的文件重定向，可以方便的控制内部App的文件的读写，基于此可以实现对文件的保护加密等功能。<br/><br/>
-  8. 注：以上控制能力均有实现代码或者实例以作参考。
+<summary>Details(Drop down to open)</summary>
+  1. Service request control. First, VA directly provides some service request interception, you can easily customize these service requests when integrating VA, including but far from limited to (APP request to install apk / APP request to open certain files / APP request for location data / APP request for phone information, etc.)<br/><br/>
+  2. System API control. VA virtualizes and implements the entire Android system framework, which is the principle that VA can run apk internally without installation. And you can through modify the virtual framework's implementation to dynamically monitor and analyze the behavior of the app, etc. In addition, you can also mock some system behavior to achieve some needs that are difficult to achieve externally (e.g. game controller).<br/><br/>
+  3. Memory read and write. VA can read and write the memory of internal APP processes without Root.<br/><br/>
+  4. Root without debugging. VA can debug (ptrace) internal APP processes without Root, based on which you can also achieve Root-free process injection.<br/><br/>
+  5. Load arbitrary "plug-in" and "behaviors". The APP process inside VA is derived from the Client side code of the VA framework, so you can insert any "load" and "control" logic into the entry code of the process. These are very simple to implement.<br/><br/>
+  6. Hook. VA has a set of built-in Xposed framework and native hook framework running on all versions of Android (until AndroidQ), based on it, you can easily Hook any Java/Native of any internal APP.<br/><br/>
+  7. File control. VA built in a complete file redirection, which allows easy control of reading and writing of files from internal apps. Based on it, you can realize many functions such as protection and encryption of files can be achieved.<br/><br/>
+  8. Note: The above control capabilities are implemented with code or examples for reference.
 </details>
 
 
-VA的其他特性
+VA Other features
 ---
 
-- 高性能<br/>
-进程级“虚拟机”，VA独特的实现方式让其性能几乎于原生App一致，更不需要普通虚拟机漫长的启动。
+- High performance<br/>
+Process-level "virtual machine", VA's unique implementation model makes its performance almost the same as that of the native APP, and does not need a long startup of ordinary virtual machines.
 
-- 全版本支持<br/>
-支持5.0-12.0，支持32位/64位app，支持ARM以及X86处理器。并且支持未来将更新的Android版本。
+- Full version support<br/>
+Support 5.0-12.0, 32-bit/64-bit APP, ARM and X86 processor. And support Android version in the future which will be updated.
 
-- 易扩展与集成<br/>
-VA 的集成方式与普通Android库类似，即使您的App已经完成上线，您也方便的可以集成VA，享受VA带来的能力。
+- Easy Expansion and Integration<br/>
+The integration of VA is similar to the normal Android library, even if your APP has been online, you can conveniently integrate VA and enjoy the capability brought by VA.
 
-- 支持Google服务<br/>
-提供Google服务的支持，以支持海外的App
+- Support Google services<br/>
+Provide support for Google services in order to support overseas APPs.
 
 
-## VA与其他技术方案对比 ##
-在做企业级移动安全时，往往需要对APP进行管控，以下是列出的可能技术方案对比： 
+## Comparison between VA and other technical solutions ##
+When doing enterprise-level mobile security, it is often necessary to control the APP, and the following is a comparison of possible technical solutions listed： 
 
-技术方案 | 原理简介 | 点评 |  运行性能 | 兼容稳定性 | 项目维护成本
+Technical solution | Principle introduction | Comment |  Running performance | Compatibility stability | Project maintenance cost
 ---- | --- | ---  | ---  | ---  | --- 
-二次打包 | 通过反编译目标APP，加入自己的控制代码，重新打包 | 1.现在的APP几乎都有加固或防篡改保护，重打包已是一件非常困难的事</br> 2.手机系统也会检测APP是否被重打包，如果重打包，会直接提示用户存在安全风险，甚至不让安装</br>3.针对每一个APP，甚至每一个版本都要深入去逆向分析，耗时耗力，难于维护  | 优秀  | 差  | 高
-定制ROM | 通过定制系统源码，编译刷到指定手机 | 只能针对指定的内部手机，局限性太大，无法扩展  | 优秀  | 优秀  | 高
-ROOT手机 | 通过ROOT手机，刷入xposed等类似框架 | 1.ROOT手机现在本身已是一件不太可能的事</br> 2.现实中也很难让用户能去ROOT自己的手机  | 优秀  | 差  | 高
-VA | 轻量级虚拟机，速度快，对设备要求低 | 无上述风险点  | 优秀  | 优秀，有上百家企业在同时测试反馈  | 低，VA提供了API并有专业的技术团队保障项目稳定运行
+Repackage | Repackage the target APP by decompiling it and adding your own control code | 1. Nowadays, almost all APPs have hardened or tamper-proof protection, and repackaging is already a very difficult task</br> 2.The mobile phone system will also detect whether the APP is repackaged, if it is repackaged, it will directly prompt the user that there is a security risk, and even not allow the installation</br>3.For each APP, even each version to go deep to reverse analysis, time-consuming and difficult to maintain  | Excellent  | Poor  | High
+Custom ROM | By customizing the system source code and compiling it to flash to the designated mobile phone | Only for specified internal mobile phones, too limited to be extended  | Excellent  | Excellent  | High
+ROOT the mobile phone | By rooting the mobile phone，flashing a framework which is similar to Xposed | 1.Now, root the mobile phone is an unlikely thing</br> 2.In reality, it is difficult for users to root their own mobile phones  | Excellent  | Poor  | High
+VA | Lightweight virtual machine with high speed and low device requirements | No risk point mentioned above  | Excellent  | Excellent. Hundreds of companies testing feedback at the same time  | Low. 
+VA provides API and a professional technical team to ensure the stable operation of the project
 <br/>
-通过以上对比可以看出，VA是一款优秀的产品，并且能降低您的开发维护成本！
+As you can see from the above comparison, VA is an excellent product and can reduce your development and maintenance costs.
 
-## 集成VA步骤 ##
-第1步：在您的Application中调用VA接口```VirtualCore.get().startup()```来启动VA引擎  
-第2步:调用VA接口```VirtualCore.get().installPackageAsUser(userId, packageName)```将目标APP安装到VA中  
-第3步:调用VA接口```VActivityManager.get().launchApp(userId, packageName)```启动APP    
-**仅通过以上3个API就完成了基础使用，VA已屏蔽了复杂的技术细节，并提供了接口API，让您的开发变得很简单！**
+## Integrating VA Steps ##
+Step 1: Call the VA interface```VirtualCore.get().startup()```in your application to start the VA engine.  
+Step 2: Call VA interface```VirtualCore.get().installPackageAsUser(userId, packageName)```to install the target APP into VA.
+Step 3: Call VA interface```VActivityManager.get().launchApp(userId, packageName)```to start the APP.   
+**With only the above 3 APIs to complete the basic use, VA has shielded the complex technical details and provided the interface API to make your development easy.**
 
-## VA的兼容稳定性 ##
-VA已被**上百家**企业进行了广泛测试，包含**数十家上市公司高标准**的测试及反馈，几乎涵盖了海内外的各种机型设备和场景！
-为您的稳定运行提供了充分的保障！  
+## VA compatible stability ##
+VA has been extensively tested by ** hundreds of **companies, including **high standards of testing and feedback of dozens of listed companies**, covering almost all types of equipment and scenarios at home and abroad, providing full protection for your stable operation!
+ 
 
-截止目前，支持的系统版本:
+Up to now, the supported system versions:
 
-系统版本 | 是否支持
+System version | Whether to support
 ---- | ---
-5.0 | 支持
-5.1 | 支持
-6.0 | 支持
-7.0 | 支持
-8.0 | 支持
-9.1 | 支持
-10.0 | 支持
-11.0 | 支持
-12.0 | 支持
-<br/>
-
-
-支持的APP类型:
-
-APP类型 | 是否支持
----- | ---
-32位APP | 支持
-64位APP | 支持
+5.0 | support
+5.1 | support
+6.0 | support
+7.0 | support
+8.0 | support
+9.1 | support
+10.0 | support
+11.0 | support
+12.0 | support
 <br/>
 
-支持的HOOK类型:
 
-Hook类型 | 是否支持
+Supported App Types:
+
+App Type | Whether to support
 ---- | ---
-Java Hook | 支持
-Native Hook | 支持
-
-支持的CPU类型:
-
-Hook类型 | 是否支持
----- | ---
-ARM 32 | 支持
-ARM 64 | 支持
+32-bit APP | support
+64-bit APP | support
 <br/>
 
-## 集成VA遇到问题如何反馈？ ##
-购买授权后我们会建立微信群，有任何问题可以随时反馈给我们，并根据优先级在第一时间处理！
+Supported HOOK Types:
 
-## VA开发文档 ##
-VA开发文档请参考：[开发文档](https://github.com/asLody/VirtualApp/blob/master/doc/VADev.md)
+Hook Type | Whether to support
+---- | ---
+Java Hook | support
+Native Hook | support
+
+Supported CPU Types:
+
+Hook Type | Whether to support
+---- | ---
+ARM 32 | support
+ARM 64 | support
+<br/>
+
+## How to give feedback on problems encountered with integrated VA ? ##
+After the purchase of the license we will establish a WeChat group, any problems can always feedback to us, and according to the priority in the first time to deal with.
+
+## VA Development document ##
+Please refer to the VA development documentation：[Development document](https://github.com/asLody/VirtualApp/blob/master/doc/VADev.md)
 
 
 
-授权说明
+License Instructions
 ------
-VirtualApp虚拟机技术归属于：济宁市罗盒网络科技有限公司，于2015年至2021年申请多项VirtualApp知识产权，`受中华人民共和国知识产权法保护`。当您需要使用Github上的代码时，**请购买商业授权**，获取商业授权后将可以收到最新VirtualApp商业版全部源代码。上百家授权客户在付费使用VirtualApp商业版代码，集成VirtualApp代码的APP日启动次数超过2亿次，众多安卓工程师向我们提供不同场景下的用户反馈，通过我们技术团队不断优化迭代，VirtualApp商业版代码性能更好、兼容性更高。`当年的公司获取授权后，将成为其中一员，享受这些不断迭代完善后的技术成果。并可以和我们的授权客户进行运营、技术及商业上的互动合作。`
+VirtualApp virtual machine technology belongs to: Jining Luohe Network Technology Co., LTD. It applied for several VirtualApp intellectual property rights from 2015 to 2021 and` is protected by the Intellectual property Law of the People's Republic of China`.When you need to use the code on Github,**please purchase a commercial license**，and receive the full source code of the latest VirtualApp commercial version.Hundreds of licensed customers are paying to use the commercial version of VirtualApp code, and the app integrated with VirtualApp code is launched more than 200 million times a day. Many Android engineers provided us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, VirtualApp Commercial Edition code has better performance and higher compatibility. `The company of that year will become one of them after obtaining the license, and enjoy the technological achievements after the continuous iteration. And we can interact and collaborate with our licensed customers operationally, technically and commercially.`
 
 <br/>
-负责人：张总 <br/>
-手机：130-321-77777 <br/>
-微信：10890 <br/>
+Person in charge: Mr. Zhang <br/>
+Telephone: +86 130-321-77777 <br/>
+WeChat：10890 <br/>
 <br/>
 
 
-严重声明
+Serious statement
 ------
-您如果未经授权将VirtualApp用于**内部使用、商业牟利或上传应用市场**，我们将取证后报警（侵犯著作权罪）或起诉，这将对您所属公司造成刑事责任及法律诉讼，影响到您公司的商誉和投资。`购买商业授权为您节省大量开发、测试和完善兼容性的时间，让您更多时间用于创新及盈利。`罗盒科技已在2020年报警和起诉了一些个人及公司。<br/>
+If you use VirtualApp for **internal use, commercial profit or upload it to the application market**without licensing. We will take evidence and then report you to the police (for copyright infringement) or prosecute you. It will cause your company to undertake criminal liability and legal action, and affect your company's goodwill and investment.`Purchasing a commercial license can save you a lot of time developing, testing and refining compatibility, leaving you more time for innovation and profitability.`Luo He Technology has called to the police and sued a number of individuals and companies in 2020.<br/>
 
-**为响应国家对于知识产权的保护号召！凡举报自己所在公司或其他公司未经授权，违法使用VirtualApp代码开发产品的，一经核实给予现金奖励。我们会对举报人身份保密！举报联系微信：10890**
+**In response to the national call for the protection of intellectual property rights! Anyone who reports that his or her company or other companies are using VirtualApp code to develop products without licensing will be given a cash reward upon verification. We will keep the identity of the whistleblower confidential! Reporting WeChat: 10890.**
 
   <br/>
 
-商业版主要更新
+Major updates of the commercial version
 ------
 
-1. 兼容最新Android S
-2. 不易被杀毒软件误报
-3. 框架优化，性能大幅提升
-4. 手机系统及APP兼容性大幅提升
-5. 完美运行Google服务
-6. 支持运行纯64位App
-7. 内置`XPosed Hook`框架
-8. 增加定位模拟代码
-9. 增加改机代码
-10. 其他近400项问题的修复和改进，详情请见下表
+1. Compatible with the latest Android S
+2. Not easily misreported by anti-virus software
+3. Framework optimization, performance greatly improved
+4. Mobile system and APP compatibility greatly improved
+5. Run Google services perfectly
+6. Supports running pure 64-bit Apps
+7. Built-in `XPosed Hook` framework
+8. Add positioning mock code
+9. Add code to change device 
+10. Nearly 400 other fixes and improvements, please see the following table for detail
 
 <br>
 
-2017年-2021年商业版代码更新详细
+2017 - 2021 Commercial Edition Code Update Details
 ------
 
-**2021年 9月21号 至 2021年 10月10号 商业版代码更新内容**
+**September 21, 2021 to October 10, 2021 Commercial Code Updates**
 
-356、修复11.0上GMS登录问题<br/>
-355、修复11.0 部分APP读写sdcard报错的问题<br/>
-354、修复va core进程死亡后，APP可能打不开的问题<br/>
-353、增加未安装插件时无法启动的错误日志<br/>
+356、Fix the GMS login problem on 11.0<br/>
+355、Fix 11.0 some APP read and write sdcard error problem<br/>
+354、Fix the problem that APP may not open after the death of VA core process<br/>
+353、Add the error log that can't start when no plug-in is installed<br/>
 
 
-**2021年 8月22号 至 2021年 9月20号 商业版代码更新内容**
+**August 22, 2021 to September 20, 2021 Commercial Code Updates**
 
-352、横屏重新适配<br/>
-351、修复部分APP通过file协议安装后无法打开的问题<br/>
-350、修复传递给JobIntentService中Intent数据丢失问题<br/>
-349、修复JobIntentService第二次调用无法工作的问题<br/>
-348、修复华为手机上某些APP奔溃的问题<br/>
-347、修复小米手机上游戏登录问题<br/>
-346、修复某些应用加固后无法打开的问题<br/>
-345、增加对关联启动权限检测<br/>
+352、Horizontal screen re-adaptation<br/>
+351、Fix the problem that some APPs cannot be opened after installation through file protocol<br/>
+350、Fix the problem of Intent data loss in the Intent passed to JobIntentService<br/>
+349、Fix the problem that the second call of JobIntentService does not work<br/>
+348、Fix the problem of crashing some APPs on Huawei cell phones<br/>
+347、Fix the game login problem on Xiaomi phone<br/>
+346、Fix the problem that some applications cannot be opened after reinforcement<br/>
+345、Add detection of associated start permission<br/>
 344、targetSdk 30适配<br/>
-343、修复targetSdk为30时，某些应用无法上网的问题<br/>
-342、修复targetSdk为30时，sdcard无法访问的问题<br/>
-341、编译脚本中使用cmake替换gradle task<br/>
-340、移除过时文档<br/>
+343、Fix the problem that some applications can't access the Internet when targetSdk is 30<br/>
+342、Fix the problem that sdcard can't be accessed when targetSdk is 30<br/>
+341、Use cmake to replace gradle task in compile script.<br/>
+340、Remove obsolete documents<br/>
 
 <details>
-<summary>2017年 12月 至 2021年 8月 21 日 商业版代码更新内容(下拉打开)</summary>
+<summary>December 2017 to August 21, 2021 Commercial code updates (Drop down to open)</summary>
 	
-**2021年 8月7号 至 2021年 8月21号 商业版代码更新内容**
+**August 7, 2021 to August 21, 2021 Commercial Code Updates**
 
-349、调整优化gradle脚本<br/>
-348、hidedenApiBypass支持Android R+<br/>
-347、targetSdk 30 支持<br/>
-346、修复VIVO系统服务bug<br/>
-345、修复VIVO手机无法使用摄像头的bug<br/>
-344、修复dex加载异常状态的获取<br/>
-343、修复Android R上libart.so路径问题<br/>
-342、修复Andoid Q+ 删除通知的bug<br/>
-341、修复APN uri的权限检查<br/>
-340、修复Android R暂停恢复线程状态<br/>
-339、修复debug模式下部分hook失效情况<br/>
-338、修复hook在R之后的一些bug<br/>
+349、Tweak and optimize gradle script<br/>
+348、hidedenApiBypass support for Android R+<br/>
+347、targetSdk 30 support<br/>
+346、Fixthe bug that VIVO system service<br/>
+345、Fix the bug that VIVO phone can't use camera<br/>
+344、Fix dex loading abnormal state acquisition<br/>
+343、Fix libart.so path problem on Android R<br/>
+342、Fix the bug of Andoid Q+ delete notification<br/>
+341、Fix the permission check of APN uri<br/>
+340、Fix Android R suspend resume thread state<br/>
+339、Fix some hook failure cases in debug mode<br/>
+338、Fix some bugs of hook after R<br/>
 
-**2021年 4月25号 至 2021年 8月6号 商业版代码更新内容**
+**April 25, 2021 to August 6, 2021 Commercial Code Updates**
 
-337、修复探探部分手机不能上传头像问题<br/>
-336、修复Android 10 华为设备IO重定向问题<br/>
-335、调整横竖屏逻辑,减少异常情况发生<br/>
-334、添加Activity生命周期的回调接口<br/>
-333、修复Android 12的广播问题<br/>
-332、修复微信部分界面状态异常的BUG<br/>
-331、修复Outlook、One drive、Teams、Zoom等海外app的支持<br/>
-330、修复Android 11 一个权限请求BUG<br/>
-329、修复部分cocos2d引擎只显示半屏的问题<br/>
-328、修复微信在多用户下不能发送文件的问题<br/>
-327、split apk 支持<br/>
-326、Android S 支持<br/>
+337、Fix the problem that some phones cannot upload avatars in Tan Tan<br/>
+336、Fix Android 10 Huawei device IO redirection problem<br/>
+335、Adjust the horizontal and vertical screen logic, reduce the occurrence of abnormalities<br/>
+334、Add the callback interface of Activity life cycle<br/>
+333、Fix the broadcasting problem of Android 12<br/>
+332、Fix the bug of abnormal status of some interfaces of WeChat<br/>
+331、Fix the support of Outlook, One drive, Teams, Zoom and other overseas APPs.<br/>
+330、Fix the bug Android 11 a permission request<br/>
+329、Fix the problem that some cocos2d engines only display half screen<br/>
+328、Fix the problem that WeChat can not send files under multi-user<br/>
+327、split apk support<br/>
+326、Android S support<br/>
 
-**2021年 2月24号 至 2021年 4月24号 商业版代码更新内容**
+**February 24, 2021 to April 24, 2021 Commercial Code Updates**
 
-325、适配多用户环境<br/>
-324、修复新版微信的兼容问题<br/>
-323、兼容更多企业级加固<br/>
-322、支持VAPP设置电源优化<br/>
-321、修复缺失权限声明<br/>
-320、修复Android 11上android.test.base库的引用<br/>
-319、优化ext插件判断<br/>
-318、优化安装时ABI的选择<br/>
-317、修复Google文档在Android 11上崩溃的问题<br/>
+325、Adapt to multi-user environment<br/>
+324、Fix the compatibility problem of the new version of WeChat<br/>
+323、Compatible with more enterprise level reinforcement<br/>
+322、Support VAPP setting power source optimization<br/>
+321、Fix missing permission statement<br/>
+320、Fix the reference of android.test.base library on Android 11<br/>
+319、Optimize ext plugin judgment<br/>
+318、Optimize the selection of ABI during installation<br/>
+317、Fix Google docs crash on Android 11<br/>
 
-**2020年 10月15号 至 2021年 2月23号 商业版代码更新内容**
+**October 15, 2020 to February 23, 2021 Commercial Code Updates**
 
-316、解决新版爱加密、邦邦等加固的兼容性<br/>
-315、修复WhatsApp不显示冷启动Splash的问题<br/>
-314、优化对系统app的识别<br/>
-313、完善多用户环境下的支持<br/>
-312、解决ext插件部分情况下卡死的问题<br/>
-311、支持Google Play在容器中下载APP<br/>
-310、修复Android 11 QQ无法显示图片的问题<br/>
-309、兼容Android 11运行Google Service<br/>
-308、解决Android 11无法运行chromium<br/>
-307、支持Hook @CriticalNative Method<br/>
-306、修复JDK 13无法编译运行的问题<br/>
-305、修复Service部分情况可能crash的问题<br/>
-304、修复Android 11无法加载外部存储私有数据的问题<br/>
-303、修复低版本app无法使用org.apache.http.legacy的问题<br/>
-302、修复某些情况系统任务栈只显示最后一个的问题<br/>
-301、完善不同平台的构建脚本<br/>
-300、修复Android 11无法读取obb的问题<br/>
-299、解决软件无法向后兼容的问题<br/>
-298、重构VApp安装框架<br/>
-297、重构virtual文件系统<br/>
-296、修复某些情况下WebView无法启动的问题<br/>
-295、修复VApp卸载重装的BUG<br/>
-294、修复LOL手游的登录异常问题<br/>
-293、支持安装Splits APK<br/>
-292、支持动态配置主包环境<br/>
-291、修复32位QQ调用64位微信卡顿的问题<br/>
-290、修复Messenger调用Facebook崩溃的问题<br/>
-289、优化对Google服务框架的支持<br/>
-288、实现新的扩展包同步机制<br/>
-287、修复Android 11正式版的异常问题<br/>
-286、添加系统Package缓存，优化性能<br/>
-285、修复disabled组件还能被PMS查询的BUG<br/>
-284、修复微信部分界面Launch行为异常的问题<br/>
-283、修复ContentProvider.getCallingPackage返回Host包名的BUG<br/>
-282、修复uid虚拟化的BUG，解决部分app权限检查失败的问题<br/>
-281、重写PendingIntent, IntentSender的实现<br/>
-280、优化进程管理，修复长期存在的概率性进程死锁问题<br/>
-279、重写Service实现，Service生命周期更准确，不容易被杀死<br/>
+316、Solve the compatibility of the new version of Love Encryption, Bang Bang and other reinforcement<br/>
+315、Fix the problem of WhatsApp not showing cold boot Splash<br/>
+314、Optimize the recognition of system APP<br/>
+313、Improve the support in multi-user environment<br/>
+312、Solve the problem that ext plug-in is stuck in some cases<br/>
+311、Support Google Play to download APP in VirtualAPP<br/>
+310、Fix the problem that Android 11 QQ can not display pictures<br/>
+309、Compatible with Android 11 running Google Service<br/>
+308、Fix the problem that Android 11 can't run chromium<br/>
+307、Support Hook @CriticalNative Method<br/>
+306、Fix the problem that JDK 13 cannot be compiled and run<br/>
+305、Fix the problem that Service may crash in some cases<br/>
+304、Fix the problem that Android 11 cannot load private data of external storage<br/>
+303、Fix the problem that low version APP cannot use org.apache.http.legacy<br/>
+302、Fix the problem that the system task stack only shows the last one in some cases<br/>
+301、Improve the build script for different platforms<br/>
+300、Fix the problem that Android 11 cannot read obb<br/>
+299、Fix the problem that the software is not backward compatible<br/>
+298、Rebuild VAPP installation framework<br/>
+297、Rebuild virtual file system<br/>
+296、Fix the problem that WebView cannot be started under certain circumstances<br/>
+295、Fix the bug of VAPP uninstall and reinstall<br/>
+294、Fix the mobile game "LOL" login exception problem<br/>
+293、Support the installation of Splits APK<br/>
+292、Support dynamic configuration of the main package environment<br/>
+291、Fix the problem of 32-bit QQ calling 64-bit WeChat delay<br/>
+290、Fix the problem of Messenger calling Facebook crash<br/>
+289、Optimize the support of Google service framework<br/>
+288、Realize the new extension package synchronization mechanism<br/>
+287、Fix the exception problem of Android 11 official version<br/>
+286、Add system Package cache to optimize performance<br/>
+285、Fix the bug that the disabled component can still be queried by PMS<br/>
+284、Fix the problem of abnormal Launch behavior in some interfaces of WeChat<br/>
+283、Fix the bug that ContentProvider.getCallingPackage returns Host package name<br/>
+282、Fix the bug of uid virtualization and solve the problem that some app permission check fails<br/>
+281、Rewrite the implementation of PendingIntent, IntentSender<br/>
+280、Optimize process management, fix the long-standing probabilistic process deadlock problem<br/>
+279、Rewrite Service implementation, Service life cycle more accurate, not easy to be killed<br/>
 
 
-**2020年 9月13号 至 2020年 10月15号 商业版代码更新内容**
+**September 13, 2020 to October 15, 2020 Commercial Code Updates**
 
-278、修复 64 位 App 无法调用 32 位 App 的问题<br/>
-277、修复 Android R 加载 HttpClient 的问题 <br/>
-276、修复 Android R debug 模式下的崩溃问题<br/>
+278、Fix the problem that 64-bit APP cannot call 32-bit APP<br/>
+277、Fix the problem of loading HttpClient in Android R <br/>
+276、Fix the problem of a crash in Android R debug mode<br/>
 
-**2020年 8月23号 至 2020年 9月12号 商业版代码更新内容**
+**August 23, 2020 to September 12, 2020 Commercial Code Updates**
 
-275、添加缺失的 service hook<br/>
-274、修复百度翻译无法启动的问题 <br/>
-273、修复 GP 下载的 split app 无法启动的问题<br/>
+275、Add the missing service hook<br/>
+274、Fix the problem that Baidu Translate cannot be started <br/>
+273、Fix the problem that the split app downloaded by GP cannot be started<br/>
 
-**2020年 7月10号 至 2020年 8月22号 商业版代码更新内容**
+**July 10, 2020 to August 22, 2020 Commercial Code Updates**
 
-272、修复 Service 创建<br/>
-271、添加 NotificationService 缺失的 Hook<br/>
-270、修复 Yotube 崩溃<br/>
+272、Fix Service creation<br/>
+271、Added missing Hook for NotificationService<br/>
+270、Fix Yotube crash<br/>
 
-**2020年 5月19号 至 2020年 7月9号 商业版代码更新内容**
+**May 19, 2020 to July 9, 2020 Commercial Code Updates**
 
-269、初步适配 Android 11 beta1<br/>
-268、修复小红书多开闪退的问题<br/>
-267、修复某些 App 多开报“应用签名被篡改”的问题<br/>
+269、Preliminary adaptation of Android 11 beta1<br/>
+268、Fix the problem of multi space flashback in RED<br/>
+267、Fix the problem of "Application signature is tampered" reported by  multi space of some APPs<br/>
 
-**2020年 4月24号 至 2020年 5月18号 商业版代码更新内容**
+**April 24, 2020 to May 18, 2020 Commercial Code Updates**
 
-266、修复 sh 调用错误<br/>
-265、修复 9.0 以上最新版 Facebook 无法登陆的问题<br/>
-264、帮助企业微信修复启动虚拟存储的情况下无法拍照的问题<br/>
-263、修复某些情况下 64位 app 打不开 Activity 的问题<br/>
+266、Fix sh call error<br/>
+265、Fix the problem that Facebook cannot be logged in in the latest version of 9.0 or above<br/>
+264、Help Enterprise WeChat to fix the problem that it can't take photos when starting virtual storage<br/>
+263、Fix the problem that 64-bit APP can't open Activity in some cases<br/>
 
-**2020年 3月24号 至 2020年 4月23号 商业版代码更新内容**
+**March 24, 2020 to April 23, 2020 Commercial Code Updates**
 
-262、修复 Vivo 设备提示安装游戏 SDK 的问题<br/>
-261、修复 Android Q 无法加载部分系统 so 的问题<br/>
-260、修复华为设备微博未响应<br/>
-259、忽略不必要的权限检查造成的崩溃<br/>
-258、修复 WPS 分享文件崩溃的问题<br/>
-257、部分 10.0 设备的闪退问题<br/>
+262、Fix the problem that Vivo device prompts to install game SDK<br/>
+261、Fix the problem that Android Q cannot load some system so<br/>
+260、Fix Huawei device microblog not responding<br/>
+259、Ignore crashes caused by unnecessary permission checks<br/>
+258、Fix the crash of WPS sharing files<br/>
+257、Flashback issue in some 10.0 devices<br/>
 
-**2020年 3月7号 至 2020年 3月23号 商业版代码更新内容**
+**March 7, 2020 to March 23, 2020 Commercial Code Updates**
 
-256、修复微信同时打开两个页面问题<br/>
-255、修复微信登陆成功但是返回登陆页面的问题<br/>
-254、修复最新版 QQ 无法下载附件的问题<br/>
-253、更新 SandHook 版本<br/>
-252、修复 9.0 以上安装未签名Apk问题 <br/>
-251、修复 10.0 的定位问题<br/>
+256、Fix WeChat open two pages at the same time problem<br/>
+255、Fix the problem that WeChat login successfully but return to the login page<br/>
+254、Fix the problem that the latest version of QQ can not download attachments<br/>
+253、Update SandHook version<br/>
+252、Fix the problem of unsigned Apk installed above 9.0<br/>
+251、Fix the positioning problem of 10.0<br/>
 
-**2020年 1月16号 至 2020年 3月6号 商业版代码更新内容**
+**January 16, 2020 to March 6, 2020 Commercial Code Updates**
 
-250、调整 lib 重定向逻辑<br/>
-249、修复三星 10.0 系统上的崩溃问题<br/>
-248、修复 release build 的 hook 异常<br/>
-247、增加 SandHook 的 proguard 规则<br/>
-246、修复对部分 App 中 VirtualApk 的兼容问题 <br/>
-245、修复 VA 内部请求安装 apk 失败的问题<br/>
+250、Tweak lib redirection logic<br/>
+249、Fix crash issue on Samsung 10.0 systems<br/>
+248、Fixed hook exception in release build<br/>
+247、Added SandHook proguard rules<br/>
+246、Fixed compatibility issue with VirtualApk in some APPs <br/>
+245、Fixed VA internal request to install apk failed<br/>
 
-**2019年 12月26号 至 2020年 1月15号 商业版代码更新内容**
+**December 26, 2019 to January 15, 2020 Commercial Code Updates**
 
-244、修复 Android Q 遗漏的 hook<br/>
-243、禁用 Emui10 的 AutoFill<br/>
-242、增加新 api 结束所有 activity<br/>
+244、Fix a missing hook in Android Q<br/>
+243、Disable AutoFill in Emui10<br/>
+242、Add new api to end all activities<br/>
 
-**2019年 12月15号 至 2019年 12月25号 商业版代码更新内容**
+**December 15, 2019 to December 25, 2019 Commercial Code Updates**
 
-241、修复 Emui10 上企业微信等 App 无法启动的问题<br/>
-240、修复在 4.x 可能导致的崩溃<br/>
-239、升级 SandHook 修复对 Thread 类的 Hook<br/>
-238、修复 Android Q 某些接口导致的权限问题<br/>
+241、Fix the problem that enterprise WeChat and other apps cannot be launched on Emui10<br/>
+240、Fix a possible crash in 4.x<br/>
+239、Upgrade SandHook to fix Hook for Thread class<br/>
+238、Fix the permission problem caused by some interfaces of Android Q<br/>
 
-**2019年 11月20号 至 2019年 12月14号 商业版代码更新内容**
+**November 20, 2019 to December 14, 2019 Commercial Code Updates**
 
-237、修复 Notification 缓存导致的崩溃<br/>
+237、Fix crash caused by Notification cache<br/>
 236、修复高版本 Notification 的 classloader 问题<br/>
 
 **2019年 11月9号 至 2019年 11月19号 商业版代码更新内容**
