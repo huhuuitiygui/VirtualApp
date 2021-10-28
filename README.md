@@ -7,17 +7,17 @@ VirtualAPP (abbreviation: VA) is a sandbox product running on Android system, wh
 ## Terminology in VA ##
 Terminology | Explanation
 ---- | ---
-Host | The APP that integrates the VirtualAPP class library (lib) is called a host.  
-Host Plug-in | A host package is used to run another ABI on the same phone. It also called plug-in package, extension package, host plug-in package, host extension package.
-Virtual APP / VAPP | Multi space in VA's virtual environment
-External APP | APP installed in the real environment of the mobile phone
+Host | The APP that integrates the VirtualAPP SDK is called  host.  
+Host Plug-in | A host package is used to run another ABI on the same device. It also called plug-in package,extension package, host plug-in package, host extension package.
+Virtual APP / VAPP | App installed in the VA space
+External APP | App installed in the device
 <br/>
 
 ## VA Technical architecture ##
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/va_architecture.jpg)  
 VA technology involves the APP layer, Framework layer and Native layer of Android in total.
-An APP wants to run on Android, the system will accept it after installing. The APP installed inside the VA is not actually installed into the system, it can't run under the normal circumstance. So how to get it to run?
-Answer: The only way to do this is to "trick" the system into thinking it has been installed. This "deception" process is the core work of the VA Framework, and is also the core technical principle of the VA.  
+App must be installed on the system before it can run. The APP installed inside the VA  space is not actually installed into the system, So of course it cannot run. Then how to get it to run?
+Answer: The only way to do this is to "cheat" the system into thinking it has been installed. This "cheat" process is the core work of the VA Framework, and is also the core technical principle of the VA.  
 
 **Here is the description of what did each layer do:**
 
@@ -54,7 +54,7 @@ VAServer | The process where the VA Server is located, it is used to handle requ
 ## VA can satisfy almost all your needs ##
 Through the above technical architecture, we can know that VA can fully control APP and provide Hook SDK, which can satisfy almost all your needs in various fields: 
 
-1. Satisfy the need of **double/multi space**   
+1. Satisfy the need of **dual/multi space**   
 VA allows you to install multiple WeChat/QQ/WhatsAPP/Facebook and other APPs on the same mobile phone, so you can have one phone with multiple accounts logged in at the same time.  
 
 2. Satisfy the need of **mobile security**  
