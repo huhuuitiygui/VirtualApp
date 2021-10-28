@@ -1,7 +1,7 @@
 <h1><p align="center">VA Product description & Development guidance</p></h1> 
 
 ## What is VA? ##
-VirtualAPP (abbreviation: VA) is a sandbox product running on Android system, which can be understood as a lightweight "Android virtual machine". Its product form is a highly extensible, customizable, integrated SDK that allows you to develop a variety of seemingly impossible projects based on or using VA. Now, VA is widely used in in many technology fields as following: mini game collection, blockchain, cloud control, silent hot fix and so on. On the one hand, you can realize cloud control mobile office security and achieve military and government data isolation with VA. On the other hand, you can implement script automation, device-info-mock, and plug-in development. Meanwhile, you can realize multi space and games booster. You can also rent the mobile game account and use the mobile controller without activation by VA. <br> **The code on Github has stopped updating in December 2017. The code of commercial version is continuously being updated. If you need license to obtain the latest code, please contact WeChat: 10890.**
+VirtualAPP (abbreviation: VA) is a sandbox product running on Android system, which can be understood as a lightweight "Android virtual machine". Its product form is a highly extensible, customizable, integrated SDK that allows you to develop a variety of seemingly impossible projects based on or using VA. Now, VA is widely used in in many technology fields as following: mini game collection, blockchain, cloud control, silent hot fix and so on. On the one hand, you can realize cloud control mobile office security and achieve military and government data isolation with VA. On the other hand, you can implement script automation, device-info-mock, and plug-in development. Meanwhile, you can realize multi space and games booster. You can also rent the mobile game account and use the mobile controller without activation by VA. <br> **The code on Github has stopped updating in December 2017. The code of business version is continuously being updated. If you need license to obtain the latest code, please contact WeChat: 10890.**
 
 
 ## Terminology in VA ##
@@ -87,7 +87,7 @@ VA implements support for Google services to support overseas APPs running, such
 7. Satisfy the need of **almost everything you can think of**  
 VA has complete oversight and control over the internal APP, and can meet almost any of your needs！
 8. VA is also the only commercially licensed product in this technology area   
-**Hundreds of** licensed customers are currently paying to use the commercial version of VirtualAPP code, and the APP integrated with VirtualAPP code is launched more than 200 million times per day. Many Android engineers provide us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, we continue to improve product performance and compatibility.
+**Hundreds of** licensed customers are currently paying to use the business version of VirtualAPP code, and the APP integrated with VirtualAPP code is launched more than 200 million times per day. Many Android engineers provide us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, we continue to improve product performance and compatibility.
 
 
 VA Specialized capabilities
@@ -209,7 +209,7 @@ Please refer to the VA development documentation：[Development document](https:
 
 License Instructions
 ------
-VirtualApp virtual machine technology belongs to: Jining Luohe Network Technology Co., LTD. It applied for several VirtualApp intellectual property rights from 2015 to 2021 and` is protected by the Intellectual property Law of the People's Republic of China`.When you need to use the code on Github,**please purchase a commercial license**，and receive the full source code of the latest VirtualApp commercial version.Hundreds of licensed customers are paying to use the commercial version of VirtualApp code, and the app integrated with VirtualApp code is launched more than 200 million times a day. Many Android engineers provided us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, VirtualApp Commercial Edition code has better performance and higher compatibility. `The company of that year will become one of them after obtaining the license, and enjoy the technological achievements after the continuous iteration. And we can interact and collaborate with our licensed customers operationally, technically and commercially.`
+VirtualApp virtual machine technology belongs to: Jining Luohe Network Technology Co., LTD. It applied for several VirtualApp intellectual property rights from 2015 to 2021 and` is protected by the Intellectual property Law of the People's Republic of China`.When you need to use the code on Github,**please purchase a commercial license**，and receive the full source code of the latest VirtualApp business version.Hundreds of licensed customers are paying to use the business version of VirtualApp code, and the app integrated with VirtualApp code is launched more than 200 million times a day. Many Android engineers provided us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, VirtualApp Business Edition code has better performance and higher compatibility. `The company of that year will become one of them after obtaining the license, and enjoy the technological achievements after the continuous iteration. And we can interact and collaborate with our licensed customers operationally, technically and commercially.`
 
 <br/>
 Person in charge: Mr. Zhang <br/>
@@ -220,13 +220,13 @@ WeChat：10890 <br/>
 
 Serious statement
 ------
-If you use VirtualApp for **internal use, commercial profit or upload it to the application market**without licensing. We will take evidence and then report you to the police (for copyright infringement) or prosecute you. It will cause your company to undertake criminal liability and legal action, and affect your company's goodwill and investment.`Purchasing a commercial license can save you a lot of time developing, testing and refining compatibility, leaving you more time for innovation and profitability.`Luo He Technology has called to the police and sued a number of individuals and companies in 2020.<br/>
+If you use VirtualApp for **internal use, business profit or upload it to the application market**without licensing. We will take evidence and then report you to the police (for copyright infringement) or prosecute you. It will cause your company to undertake criminal liability and legal action, and affect your company's goodwill and investment.`Purchasing a business license can save you a lot of time developing, testing and refining compatibility, leaving you more time for innovation and profitability.`Luo He Technology has called to the police and sued a number of individuals and companies in 2020.<br/>
 
 **In response to the national call for the protection of intellectual property rights! Anyone who reports that his or her company or other companies are using VirtualApp code to develop products without licensing will be given a cash reward upon verification. We will keep the identity of the whistleblower confidential! Reporting WeChat: 10890.**
 
   <br/>
 
-Major updates of the commercial version
+Major updates of the business version
 ------
 
 1. Compatible with the latest Android S
@@ -242,10 +242,10 @@ Major updates of the commercial version
 
 <br>
 
-2017 - 2021 Commercial Edition Code Update Details
+2017 - 2021 Business Edition Code Update Details
 ------
 
-**September 21, 2021 to October 27, 2021 Commercial Code Updates**
+**September 21, 2021 to October 27, 2021 Business Edition Code Updates**
 
 371、Fix the compatibility problem of Tik Tok Speed version<br/>
 370、Fix readlinkat return value precision<br/>
@@ -258,7 +258,7 @@ Major updates of the commercial version
 363、Add the error log that can't start when no plug-in is installed<br/>
 
 
-**August 22, 2021 to September 20, 2021 Commercial Code Updates**
+**August 22, 2021 to September 20, 2021 Business Edition Code Updates**
 
 362、Horizontal screen re-adaptation<br/>
 361、Fix the problem that some APPs cannot be opened after installation through file protocol<br/>
@@ -275,9 +275,9 @@ Major updates of the commercial version
 350、Remove obsolete documents<br/>
 
 <details>
-<summary>December 2017 to August 21, 2021 Commercial code updates (Drop down to open)</summary>
+<summary>December 2017 to August 21, 2021 Business Edition code updates (Drop down to open)</summary>
 	
-**August 7, 2021 to August 21, 2021 Commercial Code Updates**
+**August 7, 2021 to August 21, 2021 Business Edition code Updates**
 
 349、Tweak and optimize gradle script<br/>
 348、hidedenApiBypass support for Android R+<br/>
@@ -292,7 +292,7 @@ Major updates of the commercial version
 339、Fix some hook failure cases in debug mode<br/>
 338、Fix some bugs of hook after R<br/>
 
-**April 25, 2021 to August 6, 2021 Commercial Code Updates**
+**April 25, 2021 to August 6, 2021 Business Edition Code Updates**
 
 337、Fix the problem that some phones cannot upload avatars in Tan Tan<br/>
 336、Fix Android 10 Huawei device IO redirection problem<br/>
@@ -307,7 +307,7 @@ Major updates of the commercial version
 327、split apk support<br/>
 326、Android S support<br/>
 
-**February 24, 2021 to April 24, 2021 Commercial Code Updates**
+**February 24, 2021 to April 24, 2021 Business Edition Code Updates**
 
 325、Adapt to multi-user environment<br/>
 324、Fix the compatibility problem of the new version of WeChat<br/>
@@ -319,7 +319,7 @@ Major updates of the commercial version
 318、Optimize the selection of ABI during installation<br/>
 317、Fix Google docs crash on Android 11<br/>
 
-**October 15, 2020 to February 23, 2021 Commercial Code Updates**
+**October 15, 2020 to February 23, 2021 Business Edition Code Updates**
 
 316、Solve the compatibility of the new version of Love Encryption, Bang Bang and other reinforcement<br/>
 315、Fix the problem of WhatsApp not showing cold boot Splash<br/>
@@ -361,38 +361,38 @@ Major updates of the commercial version
 279、Rewrite Service implementation, Service life cycle more accurate, not easy to be killed<br/>
 
 
-**September 13, 2020 to October 15, 2020 Commercial Code Updates**
+**September 13, 2020 to October 15, 2020 Business Edition Code Updates**
 
 278、Fix the problem that 64-bit APP cannot call 32-bit APP<br/>
 277、Fix the problem of loading HttpClient in Android R <br/>
 276、Fix the problem of a crash in Android R debug mode<br/>
 
-**August 23, 2020 to September 12, 2020 Commercial Code Updates**
+**August 23, 2020 to September 12, 2020 Business Edition Code Updates**
 
 275、Add the missing service hook<br/>
 274、Fix the problem that Baidu Translate cannot be started <br/>
 273、Fix the problem that the split app downloaded by GP cannot be started<br/>
 
-**July 10, 2020 to August 22, 2020 Commercial Code Updates**
+**July 10, 2020 to August 22, 2020 Business Edition Code Updates**
 
 272、Fix Service creation<br/>
 271、Add missing Hook for NotificationService<br/>
 270、Fix Yotube crash<br/>
 
-**May 19, 2020 to July 9, 2020 Commercial Code Updates**
+**May 19, 2020 to July 9, 2020 Business Edition Code Updates**
 
 269、Preliminary adaptation of Android 11 beta1<br/>
 268、Fix the problem of multi space flashback in RED<br/>
 267、Fix the problem of "Application signature is tampered" reported by  multi space of some APPs<br/>
 
-**April 24, 2020 to May 18, 2020 Commercial Code Updates**
+**April 24, 2020 to May 18, 2020 Business Edition Code Updates**
 
 266、Fix sh call error<br/>
 265、Fix the problem that Facebook cannot be logged in in the latest version of 9.0 or above<br/>
 264、Help Enterprise WeChat to fix the problem that it can't take photos when starting virtual storage<br/>
 263、Fix the problem that 64-bit APP can't open Activity in some cases<br/>
 
-**March 24, 2020 to April 23, 2020 Commercial Code Updates**
+**March 24, 2020 to April 23, 2020 Business Edition Code Updates**
 
 262、Fix the problem that Vivo device prompts to install game SDK<br/>
 261、Fix the problem that Android Q cannot load some system so<br/>
@@ -401,7 +401,7 @@ Major updates of the commercial version
 258、Fix the crash of WPS sharing files<br/>
 257、Flashback issue in some 10.0 devices<br/>
 
-**March 7, 2020 to March 23, 2020 Commercial Code Updates**
+**March 7, 2020 to March 23, 2020 Business Edition Code Updates**
 
 256、Fix WeChat open two pages at the same time problem<br/>
 255、Fix the problem that WeChat login successfully but return to the login page<br/>
@@ -410,7 +410,7 @@ Major updates of the commercial version
 252、Fix the problem of unsigned Apk installed above 9.0<br/>
 251、Fix the positioning problem of 10.0<br/>
 
-**January 16, 2020 to March 6, 2020 Commercial Code Updates**
+**January 16, 2020 to March 6, 2020 Business Edition Code Updates**
 
 250、Tweak lib redirection logic<br/>
 249、Fix crash issue on Samsung 10.0 systems<br/>
@@ -419,54 +419,54 @@ Major updates of the commercial version
 246、Fix compatibility issue with VirtualApk in some APPs <br/>
 245、Fixed VA internal request to install apk failed<br/>
 
-**December 26, 2019 to January 15, 2020 Commercial Code Updates**
+**December 26, 2019 to January 15, 2020 Business Edition Code Updates**
 
 244、Fix a missing hook in Android Q<br/>
 243、Disable AutoFill in Emui10<br/>
 242、Add new api to end all Activity<br/>
 
-**December 15, 2019 to December 25, 2019 Commercial Code Updates**
+**December 15, 2019 to December 25, 2019 Business Edition Code Updates**
 
 241、Fix the problem that enterprise WeChat and other apps cannot be launched on Emui10<br/>
 240、Fix a possible crash in 4.x<br/>
 239、Upgrade SandHook to fix Hook for Thread class<br/>
 238、Fix the permission problem caused by some interfaces of Android Q<br/>
 
-**November 20, 2019 to December 14, 2019 Commercial Code Updates**
+**November 20, 2019 to December 14, 2019 Business Edition Code Updates**
 
 237、Fix crash caused by Notification cache<br/>
 236、Fix classloader issue of high version Notification<br/>
 
-**November 9, 2019 to November 19, 2019 Commercial Code Updates**
+**November 9, 2019 to November 19, 2019 Business Edition Code Updates**
 
 235、Fix ART Hook for Android 5.x <br/>
 234、Fix the deadlock problem caused by ART Hook <br/>
 
-**November 2, 2019 to November 8, 2019 Commercial Code Updates**
+**November 2, 2019 to November 8, 2019 Business Edition Code Updates**
 
 233、Fix WPS, NetEase Mail, etc. crashing on Q devices <br/>
 232、Fix the problem that Tom Cat Run crashes on some Q devices <br/>
 231、Fix the problem that QQ crashes on some Q devices <br/>
 
-**October 25, 2019 to November 1, 2019 Commercial Code Updates**
+**October 25, 2019 to November 1, 2019 Business Edition Code Updates**
 
 230、Fix cloning Google Play download of 64-bit APP<br/>
 229、Fix Enterprise WeChat <br/>
 228、Fix Telegram <br/>
 
-**October 8, 2019 to October 24, 2019 Commercial Code Updates**
+**October 8, 2019 to October 24, 2019 Business Edition Code Updates**
 
 227、Fix the exception of AppOspManager under Android P <br/>
 226、Add the missing Hook of ActivityTaskManager under Android P <br/>
 225、Fix the exception of Activity Top Resume under Android P <br/>
 224、Support running in system multi-user mode <br/>
 
-**October 8, 2019 Commercial Code Updates**
+**October 8, 2019 Business Edition Code Updates**
 
 223、Fix the issue of Android P or above internal app returning to desktop exception <br/>
 222、64-bit branch support for Android Q <br/>
 
-**September 20, 2019 to October 7, 2019 Commercial Code Updates**
+**September 20, 2019 to October 7, 2019 Business Edition Code Updates**
 
 221、Fix the problem that the apk installed in the extension plugin cannot display the icon and name correctly <br/>
 220、Fix the problem that twitter cannot be opened <br/>
@@ -476,7 +476,7 @@ Major updates of the commercial version
 216、Fix several bugs of 64-bit branch <br/>
 215、Newly add 64-bit branch to support 32-bit plugins, the branch supports 32-bit old devices and 64-bit devices can support 32-bit old applications in the case of 32-bit plug-ins <br/>
 
-**December 2017 to July 30, 2019 Commercial Code Updates**
+**December 2017 to July 30, 2019 Business Edition Code Updates**
 
 214、Improve APP layer prompt message<br/>
 213、Improve some code<br/>
