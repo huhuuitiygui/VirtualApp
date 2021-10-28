@@ -86,7 +86,7 @@ VA implements support for Google services to support overseas APPs running, such
 
 7. Satisfy the need of **almost everything you can think of**  
 VA has complete oversight and control over the internal APP, and can meet almost any of your needs！
-8. 8.VA is also the only commercially licensed product in this technology area   
+8. VA is also the only commercially licensed product in this technology area   
 **Hundreds of** licensed customers are currently paying to use the commercial version of VirtualAPP code, and the APP integrated with VirtualAPP code is launched more than 200 million times per day. Many Android engineers provide us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, we continue to improve product performance and compatibility.
 
 
