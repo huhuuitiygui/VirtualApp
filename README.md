@@ -16,7 +16,7 @@ External APP | App installed in the device
 ## VA Technical architecture ##
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/va_architecture.jpg)  
 VA technology involves the APP layer, Framework layer and Native layer of Android in total.
-App must be installed on the system before it can run. The APP installed inside the VA  space is not actually installed into the system, So of course it cannot run. Then how to get it to run?
+App must be installed on the system before it can run. The APP installed inside the VA  space is not actually installed into the system, so it cannot run. Then how to get it to run?
 Answer: The only way to do this is to "cheat" the system into thinking it has been installed. This "cheat" process is the core work of the VA Framework, and is also the core technical principle of the VA.  
 
 **Here is the description of what did each layer do:**
