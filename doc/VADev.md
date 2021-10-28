@@ -1,44 +1,44 @@
-<h1><p align="center">VA基础开发文档</p></h1> 
+<h1><p align="center">VA Basic Development Document</p></h1> 
 
-本文档主要介绍2部分。  
-第一部分是VA的源码结构介绍，这部分是为了让开发者能快速了解掌握VA源码框架。  
-第二部分是VA的基础SDK使用说明。 
-其他更多的开发文档见：[VA私有库Wiki](https://github.com/asLody/VirtualApp-Priv/wiki)  
-VA产品说明：[文档](https://github.com/asLody/VirtualApp/blob/master/README.md)
+This document mainly introduces 2 parts.  
+The first part is the introduction of VA source code structure, this part is to allow developers to quickly understand to master the VA source code framework.    
+The second part is a description of VA's basic SDK. For more development documents, see: VA Private Library Wiki.   
+For more development documents, see：[VA Private Library Wiki](https://github.com/asLody/VirtualApp-Priv/wiki)  
+VA Product Description：[Document](https://github.com/asLody/VirtualApp/blob/master/README.md)
 </br>
 
-**下面开始第一部分，VA源码结构介绍：**
+**The following is the first part, the introduction of the VA source code structure：**
 
-## 1. VA源码目录介绍 ##
-下图是VA源码根目录：  
+## 1. Introduction of VA source code directory ##
+The following figure is the root of the VA source code：  
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/1.png)  
-可以看到VA一共有4个源码目录，各个目录介绍如下：
+You can see that VA has a total of four source code directories, and each directory is described as follows：
 
-目录名称 | 作用
+Directory Name | Function
 ---- | ---
-app | VA Demo主包源码所在目录
-app-ext | VA Demo插件包源码所在目录
-lib | VA库源码所在目录
-lib-ext | VA插件库源码所在目录
+app | The directory where the VA Demo master package source code is located
+app-ext | The directory where the source code of VA Demo plug-in package is located
+lib | The directory where the VA library source code is located
+lib-ext | The directory where the source code of VA Plugin Library is located
 <br/>
 
-## 2. VA编译配置文件介绍 ##
-VA的编译配置文件是VAConfig.gradle：  
+## 2. Introduction of VA compilation configuration profile ##
+VA compilation configuration profile isVAConfig.gradle：  
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/2_1.jpg)  
 
-配置解释：
+Configuration explanation：
 
-配置名称 | 作用
+Configuration Name | Function
 ---- | ---
-PACKAGE_NAME | 用于配置VA主包的包名
-EXT_PACKAGE_NAME | 用于配置VA插件包的包名
-VA_MAIN_PACKAGE_32BIT | 用于配置VA主包是32位还是64位，true为32位，false为64位
-VA_ACCESS_PERMISSION_NAME | 用于配置VA中4大组建的权限名称
-VA_AUTHORITY_PREFIX | 用于配置VA主包中ContentProvider的authorities
-VA_EXT_AUTHORITY_PREFIX | 用于配置VA插件包中ContentProvider的authorities
-VA_VERSION | 用于配置VA库版本，开发者一般不需要关心
+PACKAGE_NAME | Used to configure the package name of the VA main package
+EXT_PACKAGE_NAME | Used to configure the package name of the VA plug-in package
+VA_MAIN_PACKAGE_32BIT | Used to configure whether the VA main package is 32-bit or 64-bit, true is 32-bit, false is 64-bit
+VA_ACCESS_PERMISSION_NAME | Used to configure the permission names of the 4 major components in VA
+VA_AUTHORITY_PREFIX | Used to configure the authorities of ContentProvider in the VA main packag
+VA_EXT_AUTHORITY_PREFIX | Used to configure the authorities of the ContentProvider in the VA plug-in package
+VA_VERSION | Used to configure the VA library version, developers generally do not need to care
 VA_VERSION_CODE | 用于配置VA库版本代码，开发者一般不需要关心
-<br/>
+<br/>Used to configure the VA library version code, developers generally do not need to care
 
 ## 3. VA核心代码解释 ##
 1. `com.lody.virtual.client`包下的代码运行在VAPP Client进程中，主要用于VA Framework中的APP Hook部分，完成对各个Service的HOOK处理  
@@ -535,4 +535,3 @@ _extern void MSHookFunction(void *symbol, void *replace, void **result) {
 
 </br>
 </br>
-
