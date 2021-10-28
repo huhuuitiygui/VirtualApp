@@ -54,38 +54,37 @@ VAServer | The process where the VA Server is located, it is used to handle requ
 ## VA can satisfy almost all your needs ##
 Through the above technical architecture, we can know that VA can fully control APP and provide Hook SDK, which can satisfy almost all your needs in various fields: 
 
-1. Satisfy the need of** double/multi space**   
+1. Satisfy the need of **double/multi space**   
 VA allows you to install multiple WeChat/QQ/WhatsAPP/Facebook and other APPs on the same mobile phone, so you can have one phone with multiple accounts logged in at the same time.  
 
-2. Satisfy the need of** mobile security**  
+2. Satisfy the need of **mobile security**  
 VA provides a set of internal and external isolation mechanisms, including but not limited to (file isolation / component isolation / process communication isolation). Simply speaking, VA internal is a "completely independent space". 
 Through VA, work affairs and personal affairs can be safely separated without mutual interference. With a little customization, you can achieve mobile security-related needs such as application behavior audit, data encryption, data acquisition, data leakage prevention, anti-attack leaks and so on.    
     **2.1 Application behavior audit**  
-The HOOK capability provided by VA can realize real-time monitoring of user usage behavior and upload violation information to the server. And it's easy to implement things like Time Fence ( whether a feature of the APP can be used in a certain time ), Geo Fence ( whether a feature of the APP can be used in a certain area ), sensitive keyword filtering interception and other functional requirements.
-	**2.2 Data encryption**  
-The HOOK capability provided by VA can realize all data/file encryption of the application, ensuring data/file landing security.
-
-	**2.3 Data acquisition**  
+The HOOK capability provided by VA can realize real-time monitoring of user usage behavior and upload violation information to the server. And it's easy to implement things like Time Fence ( whether a feature of the APP can be used in a certain time ), Geo Fence ( whether a feature of the APP can be used in a certain area ), sensitive keyword filtering interception and other functional requirements.    
+    **2.2 Data encryption**    
+The HOOK capability provided by VA can realize all data/file encryption of the application, ensuring data/file landing security.  
+    **2.3 Data acquisition**           
 The HOOK capability provided by VA can realize the demand for real-time silent upload of application data, such as chat records and transfer records, preventing them from being deleted afterwards without traceability.  
 	**2.4 Data leakage prevention**  
 The HOOK capability provided by VA can realize application anti-copy/paste, anti-screenshot/recording, anti-sharing/forwarding, watermark traceability and other requirements.   
 	**2.5 Anti-attack leaks**  
 With the application control capability provided by VA, privacy-related behaviors such as SMS/ address book/call log/ background recording/background photo/ browsing history and location information can be completely controlled in sandbox, prevent Trojan horses/malicious APPs from acquiring users' real private data, causing serious consequences such as leakage of secrets.
-3. Satisfy the need of** ROOT without HOOK **  
+3. Satisfy the need of **ROOT without HOOK**  
 VA provides Hook capability of Java and Native. With VA, you can easily achieve functions required by various scenarios, such as virtual positioning, changing device, APP monitoring and management, mobile security and so on.  
 
-4. Satisfy the need of** silent installation **  
+4. Satisfy the need of **silent installation**  
 VA provides the ability to silently install, silently upgrade and silently uninstall APPs. For example, the application store or game center can be integrated with VA to avoid the need for users to manually click to confirm the installation operation, so that it can be installed into VA immediately after downloading, bringing users an experience like "small program" , completely avoiding the problem of applications not easily installed by users.  
 
-5. Satisfy the need of** APP controlled ** 
+5. Satisfy the need of **APP controlled**   
 You can clearly grasp the system API, sensitive data, device information, etc. accessed by the APP through VA. For example, whether the APP accesses the contacts, photo albums, call log, whether it accesses the user's geographic location and other information.
 Of course, you can also control or construct custom messages to these APPs via VA, and not only that, you can also get access to the APP's private data, such as chat database and so on. In a word, through the application control capability provided by VA, you can easily control all the behaviors of the APP, even modify the content of the APP and server interaction and so on .  </br>
 
 
-6. Satisfy the need of** overseas markets **  
+6. Satisfy the need of **overseas markets**  
 VA implements support for Google services to support overseas APPs running, such as Twitter, Messenger, WhatsAPP, Instagram, FaceBook, Youtube and so on.
 
-7. Satisfy the need of** almost everything you can think of **  
+7. Satisfy the need of **almost everything you can think of**  
 VA has complete oversight and control over the internal APP, and can meet almost any of your needs！
 8. 8.VA is also the only commercially licensed product in this technology area   
 **Hundreds of** licensed customers are currently paying to use the commercial version of VirtualAPP code, and the APP integrated with VirtualAPP code is launched more than 200 million times per day. Many Android engineers provide us with user feedback in different scenarios, and through our technical team's continuous optimization and iteration, we continue to improve product performance and compatibility.
@@ -246,29 +245,34 @@ Major updates of the commercial version
 2017 - 2021 Commercial Edition Code Update Details
 ------
 
-**September 21, 2021 to October 10, 2021 Commercial Code Updates**
+**September 21, 2021 to October 27, 2021 Commercial Code Updates**
 
-356、Fix the GMS login problem on 11.0<br/>
-355、Fix 11.0 some APP read and write sdcard error problem<br/>
-354、Fix the problem that APP may not open after the death of VA core process<br/>
-353、Add the error log that can't start when no plug-in is installed<br/>
+371、Fix the compatibility problem of Tik Tok Speed version<br/>
+370、Fix readlinkat return value precision<br/>
+369、Fix the problem of installing APP from outside, not referencing org.apache.http.legacy<br/>
+368、Fix Huawei Nova 5i, 64-bit main package compatibility<br/>
+367、Fix external storage redirection issue on 11.0<br/>
+366、Fix the GMS login problem on 11.0<br/>
+365、Fix 11.0 some APP read and write sdcard error problem<br/>
+364、Fix the problem that APP may not open after the death of VA core process<br/>
+363、Add the error log that can't start when no plug-in is installed<br/>
 
 
 **August 22, 2021 to September 20, 2021 Commercial Code Updates**
 
-352、Horizontal screen re-adaptation<br/>
-351、Fix the problem that some APPs cannot be opened after installation through file protocol<br/>
-350、Fix the problem of Intent data loss in the Intent passed to JobIntentService<br/>
-349、Fix the problem that the second call of JobIntentService does not work<br/>
-348、Fix the problem of crashing some APPs on Huawei cell phones<br/>
-347、Fix the game login problem on Xiaomi phone<br/>
-346、Fix the problem that some applications cannot be opened after reinforcement<br/>
-345、Add detection of associated start permission<br/>
-344、targetSdk 30适配<br/>
-343、Fix the problem that some applications can't access the Internet when targetSdk is 30<br/>
-342、Fix the problem that sdcard can't be accessed when targetSdk is 30<br/>
-341、Use cmake to replace gradle task in compile script.<br/>
-340、Remove obsolete documents<br/>
+362、Horizontal screen re-adaptation<br/>
+361、Fix the problem that some APPs cannot be opened after installation through file protocol<br/>
+360、Fix the problem of Intent data loss in the Intent passed to JobIntentService<br/>
+359、Fix the problem that the second call of JobIntentService does not work<br/>
+358、Fix the problem of crashing some APPs on Huawei cell phones<br/>
+357、Fix the game login problem on Xiaomi phone<br/>
+356、Fix the problem that some applications cannot be opened after reinforcement<br/>
+355、Add detection of associated start permission<br/>
+354、targetSdk 30 adaptation<br/>
+353、Fix the problem that some applications can't access the Internet when targetSdk is 30<br/>
+352、Fix the problem that sdcard can't be accessed when targetSdk is 30<br/>
+351、Use cmake to replace gradle task in compile script.<br/>
+350、Remove obsolete documents<br/>
 
 <details>
 <summary>December 2017 to August 21, 2021 Commercial code updates (Drop down to open)</summary>
@@ -372,7 +376,7 @@ Major updates of the commercial version
 **July 10, 2020 to August 22, 2020 Commercial Code Updates**
 
 272、Fix Service creation<br/>
-271、Added missing Hook for NotificationService<br/>
+271、Add missing Hook for NotificationService<br/>
 270、Fix Yotube crash<br/>
 
 **May 19, 2020 to July 9, 2020 Commercial Code Updates**
@@ -410,16 +414,16 @@ Major updates of the commercial version
 
 250、Tweak lib redirection logic<br/>
 249、Fix crash issue on Samsung 10.0 systems<br/>
-248、Fixed hook exception in release build<br/>
-247、Added SandHook proguard rules<br/>
-246、Fixed compatibility issue with VirtualApk in some APPs <br/>
+248、Fix hook exception in release build<br/>
+247、Add SandHook proguard rules<br/>
+246、Fix compatibility issue with VirtualApk in some APPs <br/>
 245、Fixed VA internal request to install apk failed<br/>
 
 **December 26, 2019 to January 15, 2020 Commercial Code Updates**
 
 244、Fix a missing hook in Android Q<br/>
 243、Disable AutoFill in Emui10<br/>
-242、Add new api to end all activities<br/>
+242、Add new api to end all Activity<br/>
 
 **December 15, 2019 to December 25, 2019 Commercial Code Updates**
 
@@ -431,265 +435,264 @@ Major updates of the commercial version
 **November 20, 2019 to December 14, 2019 Commercial Code Updates**
 
 237、Fix crash caused by Notification cache<br/>
-236、修复高版本 Notification 的 classloader 问题<br/>
+236、Fix classloader issue of high version Notification<br/>
 
-**2019年 11月9号 至 2019年 11月19号 商业版代码更新内容**
+**November 9, 2019 to November 19, 2019 Commercial Code Updates**
 
-235、修复 Android 5.x 的 ART Hook <br/>
-234、修复 ART Hook 可能导致的死锁问题 <br/>
+235、Fix ART Hook for Android 5.x <br/>
+234、Fix the deadlock problem caused by ART Hook <br/>
 
-**2019年 11月2号 至 2019年 11月8号 商业版代码更新内容**
+**November 2, 2019 to November 8, 2019 Commercial Code Updates**
 
-233、修复 WPS, 网易邮箱等在 Q 设备上崩溃的问题 <br/>
-232、修复汤姆猫跑酷在部分 Q 设备上崩溃的问题 <br/>
-231、修复 QQ 在部分 Q 设备上崩溃的问题 <br/>
+233、Fix WPS, NetEase Mail, etc. crashing on Q devices <br/>
+232、Fix the problem that Tom Cat Run crashes on some Q devices <br/>
+231、Fix the problem that QQ crashes on some Q devices <br/>
 
-**2019年 10月25号 至 2019年 11月1号 商业版代码更新内容**
+**October 25, 2019 to November 1, 2019 Commercial Code Updates**
 
-230、修复克隆 Google Play 下载的 64位 App<br/>
-229、修复企业微信 <br/>
-228、修复 Telegram <br/>
+230、Fix cloning Google Play download of 64-bit APP<br/>
+229、Fix Enterprise WeChat <br/>
+228、Fix Telegram <br/>
 
-**2019年 10月8号 至 2019年 10月24号 商业版代码更新内容**
+**October 8, 2019 to October 24, 2019 Commercial Code Updates**
 
-227、修复 Android P 下 AppOspManager 的异常 <br/>
-226、添加 Android P 下 ActivityTaskManager 丢失的 Hook <br/>
-225、修复 Android P 下 Activity Top Resume 异常 <br/>
-224、支持在系统多用户模式下运行! <br/>
+227、Fix the exception of AppOspManager under Android P <br/>
+226、Add the missing Hook of ActivityTaskManager under Android P <br/>
+225、Fix the exception of Activity Top Resume under Android P <br/>
+224、Support running in system multi-user mode <br/>
 
-**2019年 10月8号 商业版代码更新内容**
+**October 8, 2019 Commercial Code Updates**
 
-223、修复Android P 以上内部 app 返回桌面异常的问题 <br/>
-222、64位分支支持 Android Q <br/>
+223、Fix the issue of Android P or above internal app returning to desktop exception <br/>
+222、64-bit branch support for Android Q <br/>
 
-**2019年 9月20号 至 2019年 10月7号 商业版代码更新内容**
+**September 20, 2019 to October 7, 2019 Commercial Code Updates**
 
-221、修复安装在扩展插件中的 apk 无法正确显示图标和名称的问题 <br/>
-220、修复 twitter 无法打开的问题 <br/>
-219、正式兼容 Android Q 正式版! <br/>
-218、修复 Android Q 某些 Activity 无法再次打开的问题 <br/>
-217、初步适配 Android Q 正式版 <br/>
-216、修复数个64位分支的 Bug <br/>
-215、新增加支持32位插件的64位分支，该分支支持32位旧设备并且64位设备在32位插件的情况下可以支持32位旧应用 <br/>
+221、Fix the problem that the apk installed in the extension plugin cannot display the icon and name correctly <br/>
+220、Fix the problem that twitter cannot be opened <br/>
+219、Officially compatible with Android Q official version <br/>
+218、Fix the problem that some Activity of Android Q cannot be opened again <br/>
+217、Initially compatible with Android Q official version <br/>
+216、Fix several bugs of 64-bit branch <br/>
+215、Newly add 64-bit branch to support 32-bit plugins, the branch supports 32-bit old devices and 64-bit devices can support 32-bit old applications in the case of 32-bit plug-ins <br/>
 
-**2017年 12月 至 2019年 7月 30 日 商业版代码更新内容**
+**December 2017 to July 30, 2019 Commercial Code Updates**
 
-214、改进 App 层提示信息 <br/>
-213、改进部分编码 <br/>
-212、修复从宿主向插件发送广播的方法 <br/>
-211、兼容最新版 gradle 插件 <br/>
-210、增加广播命名空间以避免多个使用 VA 技术的 App 互相干扰 <br/>
-209、修复 IMO 打不开的问题 <br/>
-208、修复部分 ContentProvider 找不到的问题 <br/>
-207、支持纯32位模式，以兼容老设备 <br/>
-206、初步支持纯64位模式，以应对8月份的谷歌市场的策略变化 <br/>
-205、适配到 Android Q beta4 <br/>
-204、修复了货拉拉无法安装的问题<br/>
-203、优化了64位apk的判定逻辑<br/>
-202、修复配置网络证书的 App 的联网<br/>
-201、重构组件状态管理<br/>
-200、优化 MIUI/EMUI ContentProvider 兼容性<br/>
-199、修复 StorageStats Hook<br/>
-198、修复快手无法登陆<br/>
-197、修复 YY 无法启动，更好的兼容插件化框架<br/>
-196、修复 Facebook 登陆<br/>
-195、修复 Google Play 下载的 App 无法找到 so 的问题(皇室战争)<br/>
-194、修复 split apk 支持<br/>
-193、修复 Youtube 无法启动<br/>
-192、修复优酷无法启动的问题<br/>
-191、修复多开时app间可能存在广播namespace冲突的BUG<br/>
-190、采用新的策略绕过Android P以后的Hidden Policy API<br/>
-189、适配Android Q(beta1)<br/>
-188、修复华为设备部分app无法识别存储的问题<br/>
-187、修复启动进程可能失败导致app无法运行的问题<br/>
-186、修复4.4设备部分native符号无法找到的问题<br/>
-185、修复部分设备WebView包名获取失败的问题<br/>
-184、修复Service细节处理的问题<br/>
-183、优化启动速度<br/>
-182、修复WebView在少数机型加载失败的情况<br/>
-181、修复Lib决策的问题<br/>
-180、修复部分华为机型无法读取内存卡的问题<br/>
-179、修复Service可能存在的问题<br/>
-178、允许根据intent判断Activity是否在外部启动<br/>
-177、修复部分机型上Gms和Google Play启动到了不正确的环境<br/>
-176、修复新实现的StaticBroadcast导致的兼容性问题<br/>
-175、修复Android P上无法使用apache.http.legacy的问题<br/>
-174、实现Native trace<br/>
-173、优化IO Redirect性能<br/>
-172、修复wechat部分时候出现网络无法连接的问题<br/>
-171、修复小概率process attach不正确的BUG<br/>
-170、开始下一阶段的ROADMAP<br/>
-169、解决Android P无法注册超过1000个广播导致的问题<br/>
-168、修复可能导致ANR的DeadLock<br/>
-167、修复部分app动态加载so失败的问题<br/>
-166、修复免安装运行环境下部分机型第一次打开出现黑屏的问题<br/>
-165、兼容适配多款主流的Android模拟器<br/>
-164、优化启动性能<br/>
-163、解决多个内存泄露问题<br/>
-162、修复IO Redirect优先级的问题<br/>
-161、修复8.0以下设备Messenger无网络连接的问题<br/>
-160、修复双开时外部app卸载时内部app仍然保留的BUG<br/>
-159、修复部分腾讯加固无法运行的问题<br/>
-158、修复Instagram无法登录Facebook的BUG<br/>
-157、修复进程小概率可能重复启动的BUG<br/>
-156、修复GET_PERMISSIONS没有获取权限的BUG<br/>
-155、修复startActivityIntentSender的BUG<br/>
-154、修复vivo设备部分Activity无法启动的问题<br/>
-153、修复app无法调用外部app选择文件的问题<br/>
-152、完善Android P的兼容<br/>
-151、兼容Android P的Google服务<br/>
-150、解决Messenger部分功能异常<br/>
-149、完善IO Redirect<br/>
-148、大量适配Gms, 修复Gms运行过程中进程无限重启的问题<br/>
-147、重新实现Service的运行机制<br/>
-146、完善64bit，提供了部分ROM配置64bit Engine权限的API<br/>
-145、修复了4.4设备上的Activity启动问题<br/>
-144、支持excludeFromRecent属性<br/>
-143、修复Instagram无法Facebook登录的问题<br/>
-142、修复Facebook第一次登录闪退的问题<br/>
-141、支持以64位模式运行Gms、Google play、Play game<br/>
-140、支持在双开/免安装运行的Google play中下载和安装app<br/>
-139、修复DownloadManager的BUG<br/>
-138、修复Google play返回上层时重启界面的BUG<br/>
-137、修复免安装模式下so决策问题<br/>
-136、优化构建脚本，便于引入项目<br/>
-135、修复移动MM SDK无法启动的问题<br/>
-134、修复微信摇一摇的BUG<br/>
-133、修复中兴设备不稳定的BUG<br/>
-132、支持ARM64下的IO Redirect<br/>
-131、修复USE_OUTSIDE模式下外部app更新时，内部app没有更新的BUG<br/>
-130、兼容最新Android 9.0(代号: pie) 及正式版之前发布的四个Preview版本<br/>
-129、兼容内置houdini的x86设备<br/>
-128、WindowPreview技术，使app启动与真实app达到一样的速度<br/>
-127、新的ActivityStack以提高app运行质量<br/>
-126、解决接入Atlas Framework的app运行异常的问题<br/>
-125、现在可以定义虚拟app返回桌面的具体行为<br/>
-124、现在双开模式下app随系统动态更新，不需要手动检查<br/>
-123、支持targetSdkVersion >= 26时仍可正常运行低版本的app<br/>
-122、兼容腾讯游戏管家的QDroid虚拟引擎 (beta)<br/>
-121、大量重构底层代码，大幅提升运行速度<br/>
-120、修复网易新闻分享到微博后无法取消的问题<br/>
-119、修复App自定义权限无法识别的问题<br/>
-118、修复墨迹天气app无法启动的问题<br/>
-117、修复部分政府app无法启动的问题<br/>
-116、API的变动详见代码<br/>
-115、修复三星系列应用的相互调用问题<br/>
-114、修复小米应用在非小米系统的账号问题<br/>
-113、修复分享/发送等第三方调用，返回页面不正常<br/>
-112、修复应用宝提示不能安装<br/>
-111、调用第三方app，对uri进行加密<br/>
-110、适配前刘海<br/>
-109、适配小米rom的hook<br/>
-108、适配努比亚录音问题<br/>
-107、内部悬浮窗权限控制<br/>
-106、优化自定义通知栏的处理<br/>
-105、修复Context的INCLUDE_CODE权限问题<br/>
-104、适配华为，oppo的角标<br/>
-103、修复百度视频的进程重启问题<br/>
-102、修复某些snapchat的无法启动问题<br/>
-101、适配autofill服务，例如piexl系列<br/>
-100、完善64位的io hook<br/>
-99、优化hook库的兼容性，加回dlopen<br/>
-98、64位扩展包的so移到32位主包。（jni代码改动后，在Run之前，请先build一次）<br/>
-97、通知栏改动：适配8.1的通知渠道；移除应用时，移除应用的全部通知<br/>
-96、兼容部分app，需要设置android:largeHeap=true<br/>
-95、修复ffmpeg库的视频无法播放问题<br/>
-94、优化横竖屏切换<br/>
-93、降低通过Intent.ACTION_VIEW调用外部Activity限制。<br/>
-92、兼容MG SDK<br/>
-91、64位支持还在开发阶段<br/>
-90、更新混淆配置app/proguard-rules.pro，必须加规则-dontshrink<br/>
-89、优化模拟机型，例如：模拟后，某些app不出现设备验证<br/>
-88、提高dex2oat兼容性<br/>
-87、优化模拟定位<br/>
-86、移除dlopen<br/>
-85、targetVersion可以改为26：支持targetVersion<23的app动态权限申请，支持targetVersion<24的文件Uri<br/>
-84、installPackage改为默认异步形式<br/>
-83、为了支持64位模式，换回aidl<br/>
-82、去掉SettingHandler现在可以动态设置特殊规则，规则会存储，不需要重复设置<br/>
-81、增加2个native_setup<br/>
-80、提高jobService兼容性<br/>
-79、ShortcutService相关：关联VASettings.ENABLE_INNER_SHORTCUT<br/>
-78、为了稳定性和运行效率，去掉上个版本的蓝牙，wifi，不声明权限的适配。<br/>
-77、增加app启动异常的广播Constants.ACTION_PROCESS_ERROR<br/>
-76、修复少数游戏横屏判断问题<br/>
-75、demo增加机型模拟<br/>
-74、适配vivo一个自定义权限（后台弹窗）VA是把一个历史acitivty返回前台，vivo需要这个权限。<br/>
-73、如果没有蓝牙权限，返回默认值（海外用）<br/>
-72、修复uid权限检查问题<br/>
-71、安全性更新，内部应用的文件权限控制<br/>
-70、提高内部app调用的兼容性，第三方登录，分享<br/>
-69、自动过滤没权限的外部ContentProvider<br/>
-68、增加功能：内部app的权限检查（默认关闭）<br/>
-67、机型模拟:Build类和build.prop<br/>
-66、提高对乐固加固的app兼容性<br/>
-65、适配三星wifimanager<br/>
-64、修复ipc框架一个参数传递问题（IPCMethod这个类必须更新）<br/>
-63、补全7.0通知栏的hook<br/>
-62、修正8.0动态快捷菜单的hook<br/>
-61、SettingHandler新增一个适配接口，主要适配各种游戏<br/>
-60、功能改动：google自动安装改为手动安装，避免第一次启动时间过久<br/>
-59、可以禁止访问外部某个ContentProvider<br/>
-58、适配华为桌面图标数量<br/>
-57、权限分类注释，标注可删除权限。<br/>
-56、增加双开模式的app跟随外部升级的开关。<br/>
-55、提高app的jni兼容性。<br/>
-54、提高对app集成其他插件框架的兼容性。<br/>
-53、增加设置接口，根据包名进行设置。<br/>
-52、增加Uri的适配范围，支持通过Uri分享和查看文件。<br/>
-51、修复一个在三星8.0的问题。<br/>
-50、提高对系统自带的app组件兼容性，更好兼容chrome webview，google service。<br/>
-49、提高ART稳定性<br/>
-48、增加相机适配范围<br/>
-47、支持内部App在8.0下的快捷方式管理<br/>
-46、修复exec异常<br/>
-45、提高稳定性（修复微信登录闪退）<br/>
-44、解决微信数据库崩溃问题<br/>
-43、修复部分4.4设备崩溃问题<br/>
-42、修复后台应用易被杀死，土豆视频黑屏，新浪微博无法打开，优酷两次返回无法退出。<br/>
-41、增加应用的保活机制，双开APP更不易被杀死。<br/>
-40、优化虚拟引擎启动性能。<br/>
-39、兼容了大部分的加固，第三方APP兼容性对比上一版提升40%+。<br/>
-38、修复某些rom下，快捷方式图标不正确<br/>
-37、兼容以前组件StubFileProvider<br/>
-36、适配部分新ROM的虚拟IMEI<br/>
-35、改善进程初始化代码，增加稳定性<br/>
-34、添加内部发送Intent.ACTION_BOOT_COMPLETED的广播，可以设置开关<br/>
-33、适配关联google play游戏，支持游戏使用google登录<br/>
-32、适配android O的google service框架<br/>
-31、适配android O 快捷方式<br/>
-30、适配耳机模式<br/>
-29、某些rom对intent的大小限制，demo添加缩放快捷方式图标代码<br/>
-28、修复多开情况下一个bug<br/>
-27、修复某些情况下MediaController的bug<br/>
-26、修复4.1.2的StubFileProvider报错<br/>
-25、分享的uri处理<br/>
-24、修复跨app调用Activity的回调<br/>
-23、前台服务的通知栏拦截开关<br/>
-22、附带doc<br/>
-21、完善VA内部的intent的CHOOSE回调<br/>
-20、Android O的通知栏适配2<br/>
-19、ipc框架优化, 提高判断binder的存活准确性<br/>
-18、jni的log开关 Android.mk:LOCAL_CFLAGS += -DLOG_ENABLE<br/>
-17、混淆配置<br/>
-16、Android O的通知栏适配<br/>
-15、修复部分app网络卡的问题<br/>
-14、适配 android 8.0的dl_open（jni加载）<br/>
-13、修复华为emui8.0的一个bug<br/>
-12、完善定位<br/>
-11、设置手机信息，imei伪装算法<br/>
-10、适配8.0某个功能（主要app：whatsapp）<br/>
-9、修复内部微信等应用，无法更新图片，视频<br/>
-8、demo增加安装监听，自动升级克隆模式的应用<br/>
-7、7.0的file provider适配<br/>
-6、增加了定位代码<br/>
-5、代码进行了架构优化<br/>
-4、与开源版不同的特征<br/>
-3、解决了微信被封的一些问题<br/>
-2、修复了部分机型兼容性<br/>
-1、修复了12个小BUG<br/>
+214、Improve APP layer prompt message<br/>
+213、Improve some code<br/>
+212、Fix the method of sending broadcast from host to plug-in <br/>
+211、Compatible with the latest gradle plug-in <br/>
+210、Add broadcast namespace to avoid multiple APPs that use VA technology to interfere with each other <br/>
+209、Fix the problem that IMO can't be opened <br/>
+208、Fix the problem that some ContentProvider cannot be found <br/>
+207、Support pure 32-bit mode to be compatible with old devices <br/>
+206、Preliminary support for pure 64-bit mode to cope with the change of Google Marketplace strategy in August <br/>
+205、Adapt to Android Q beta4 <br/>
+204、Fix the problem that Cargo LaLa can't be installed<br/>
+203、Optimize the decision logic of 64-bit apk<br/>
+202、Fix networking of App with network certificate configuration<br/>
+201、Refactored component state management<br/>
+200、Optimize MIUI/EMUI ContentProvider compatibility<br/>
+199、Fix StorageStats Hook<br/>
+198、Fix Kwai can't login<br/>
+197、Fix YY can not start, better compatibility with plug-in framework<br/>
+196、Fix Facebook login<br/>
+195、Fix the problem of Google Play downloaded App can not find so (Royal War)<br/>
+194、Fix split apk support<br/>
+193、Fix Youtube can not start<br/>
+192、Fix the problem that Youku can not start<br/>
+191、Fix the bug that there may be broadcast namespace conflict between apps when multi space<br/>
+190、Adopt a new strategy to bypass the Hidden Policy API after Android P<br/>
+189、Adapted to Android Q(beta1)<br/>
+188、Fix the problem that some APPs of Huawei devices cannot recognize the storage<br/>
+187、Fix the problem that the startup process may fail dues to the APP cannot run<br/>
+186、Fix the problem that some native symbols cannot be found in 4.4 devices<br/>
+185、Fix the problem that some devices fail to get the package name of WebView<br/>
+184、Fix the problem of Service detail processing<br/>
+183、Optimize startup speed<br/>
+182、Fix WebView loading failure in a few devices<br/>
+181、Fix the problem of Lib decision<br/>
+180、 Fix the problem that some Huawei models cannot read the sdcard<br/>
+179、Fix the problem that Service may exist<br/>
+178、Allow to determine whether Activity is started externally based on intent<br/>
+177、Fix Gms and Google Play launching to incorrect environment on some models<br/>
+176、Fix the compatibility problem caused by the newly implemented StaticBroadcast<br/>
+175、Fix the problem that apache.http.legacy cannot be used on Android P<br/>
+174、Implementation of Native trace<br/>
+173、Optimize IO Redirect performance<br/>
+172、Fix the problem that wechat can't connect to the network in some cases<br/>
+171、Fix the small probability process attach of incorrect BUG<br/>
+170、Start the next phase of ROADMAP<br/>
+169、Fix the problem caused by the inability of Android P to register more than 1000 broadcasts<br/>
+168、Fix the DeadLock that may cause ANR<br/>
+167、Fix the problem that some apps fail to load so dynamically<br/>
+166、Fix the problem that some models have black screen when opened for the first time under the without installation running environment<br/>
+165、Compatible with many mainstream Android emulators<br/>
+164、Optimize startup performance<br/>
+163、Solve several memory leaks<br/>
+162、Fix the problem of IO Redirect priority<br/>
+161、Fix the problem of no network connection of Messenger for devices below 8.0<br/>
+160、Fix the bug that the internal app is still retained when the external APP is uninstalled when double space<br/>
+159、Fix the problem that some Tencent reinforcement cannot run<br/>
+158、 Fix the bug that Instagram cannot login to Facebook<br/>
+157、Fix the bug that the process may start repeatedly with small probability<br/>
+156、Fix the bug that GET_PERMISSIONS does not get permission<br/>
+155、Fix the bug that startActivityIntentSender<br/>
+154、Fix the problem that some Activity cannot be started in Vivo devices<br/>
+153、Fix the problem that app cannot call external APP to select files<br/>
+152、Improve the compatibility of Android P<br/>
+151、Compatible with Google service of Android P<br/>
+150、Fix the problem that some functions of Messenger are abnormal<br/>
+149、Improve IO Redirect<br/>
+148、Adapt a lot of Gms, fix the problem that the process restarts infinitely during the operation of Gms<br/>
+147、Realize the running mechanism of Service<br/>
+146、Improve 64bit, provide some ROM configuration 64bit Engine permission API<br/>
+145、Fix the Activity startup problem on 4.4 devices<br/>
+144、Support excludeFromRecent property<br/>
+143、Fix the problem that Instagram can't Facebook login<br/>
+142、Fix the problem of Facebook first login flashback<br/>
+141、Support to run Gms, Google play, Play game in 64-bit mode<br/>
+140、Support downloading and installing APPs in Google play running without installation/in multi space<br/>
+139、Fix the bug of DownloadManagerG<br/>
+138、Fix the bug of restarting the interface when Google play returns to the upper level<br/>
+137、Fix the problem of so decision in without installation mode<br/>
+136、Optimize the build script to facilitate the introduction of the project<br/>
+135、Fix the problem that mobile MM SDK can't start<br/>
+134、Fix the bug of WeChat Shake<br/>
+133、Fix the bug of ZTE device instability<br/>
+132、Support IO Redirect under ARM64<br/>
+131、Fix the bug that the internal app is not updated when the external app is updated in USE_OUTSIDE mode<br/>
+130、Compatible with the latest Android 9.0 (code name: pie) and the four Preview versions released before the official version<br/>
+129、Compatible with x86 devices with built-in houdini<br/>
+128、WindowPreview technology, so that the app launch and the real app to achieve the same speed<br/>
+127、New ActivityStack to improve the quality of APP running<br/>
+126、Solve the problem of app running exception with adding Atlas Framework<br/>
+125、Now you can define the specific behavior of the virtual app back to the desktop<br/>
+124、APP in the double space dynamically updated with the system, no need to manually check<br/>
+123、Support targetSdkVersion >= 26, but still can normally run the low version of the APP<br/>
+122、Compatible with QDroid virtual engine of Tencent Game Manager (beta)<br/>
+121、Extensive refactoring of the underlying code to greatly improve the running speed<br/>
+120、Fix the problem that NetEase News cannot be cancelled after sharing to Weibo<br/>
+119、Fix the problem that APP custom permission cannot be identified<br/>
+118、Fix the problem that the MoJi weatherAPP can not start<br/>
+117、Fix the problem that some government APPs cannot be started<br/>
+116、See code for details of API changes<br/>
+115、Fix the problem of Samsung series APPs calling each other<br/>
+114、Fix the account problem of Xiaomi APP in non-Xiaomi system<br/>
+113、Fix third-party calls such as share/send, the return page is not normal<br/>
+112、Fix the problem of APP Store of QQ can not be installed<br/>
+111、Call the third-party APP, encryption of uri<br/>
+110、Adapt the front bangs<br/>
+109、Adapt the hook of Xiaomi rom<br/>
+108、Adapt Nubia recording problem<br/>
+107、 Internal hover window permission control<br/>
+106、Optimize the processing of custom notification bar<br/>
+105、Fix the INCLUDE_CODE permission problem of Context<br/>
+104、Adapt Huawei, oppo's corner mark<br/>
+103、Fix the process restart problem of Baidu video<br/>
+102、Fix some snapchat can not start problem<br/>
+101、Adapt autofill service, such as piexl series<br/>
+100、Improve the 64-bit io hook<br/>
+99、Optimize the compatibility of hook library, add back dlopen<br/>
+98、Move the 64-bit extension package so to the 32-bit main package. (After jni code change, please build once before Run)<br/>
+97、Notification bar changes: adapt 8.1 notification channel; remove the application, remove all notifications of the application<br/>
+96、Compatible with some APPs, need to set android:largeHeap=true<br/>
+95、Fix the ffmpeg library video can not play the problem<br/>
+94、Optimize horizontal and vertical screen switching<br/>
+93、Lower the limitation of calling external Activity through Intent<br/>
+92、Compatible with MG SDK<br/>
+91、64-bit support is still in the development stage<br/>
+90、Update obfuscation configuration APP/proguard-rules.pro, must add the rule -dontshrink<br/>
+89、Optimize the mock device, for example: after mock, some APPs do not appear device verification<br/>
+88、Improve dex2oat compatibility<br/>
+87、Optimize mock positioning<br/>
+86、Remove dlopen<br/>
+85、targetVersion can be changed to 26: support targetVersion<23 app dynamic permission application, support targetVersion<24 file Uri<br/>
+84、installPackage changed to default asynchronous form<br/>
+83、In order to support 64-bit mode, change back to aidl<br/>
+82、Remove SettingHandler can now dynamically set special rules, the rules will be stored, no need to repeat settings<br/>
+81、Add 2 native_setup<br/>
+80、Improve jobService compatibility<br/>
+79、ShortcutService related: associated VASettings.ENABLE_INNER_SHORTCUT<br/>
+78、For the sake of stability and running efficiency, remove the Bluetooth, wifi and undeclared permission adaptations of the previous version<br/>
+77、Add APP starts abnormal broadcast Constants.ACTION_PROCESS_ERROR<br/>
+76、Fix a few games horizontal screen judgment problem<br/>
+75、Demo adds device mock<br/>
+74、Adapt Vivo a custom permission (background pop-up), VA is to return a history acitivty to the foreground. Vivo needs this permission<br/>
+73、If there is no Bluetooth permission, return to the default value (overseas use it)<br/>
+72、Fix uid permission check problem<br/>
+71、Security updates, file permission control for internal applications<br/>
+70、Improve the compatibility of internal APP calls, third-party login, sharing<br/>
+69、Automatic filtering of external ContentProvider without permissions<br/>
+68、Add feature: internal APP permission check (closed by default)<br/>
+67、Device mock: Build class and build.prop<br/>
+66、Improve the compatibility of the APP progard<br/>
+65、Adapt to Samsung wifimanager<br/>
+64、Fix ipc framework a parameter passing problem (IPCMethod this class must be updated)<br/>
+63、Fill the 7.0 notification bar hook<br/>
+62、Fix 8.0 dynamic shortcut menu hook<br/>
+61、SettingHandler adds a new adaptation interface, mainly adapted to a variety of games<br/>
+60、Functional changes: google automatic installation to manual installation, to avoid the first start time too long<br/>
+59、Prohibit access to an external ContentProvider<br/>
+58、Adapt Huawei desktop icon number<br/>
+57、Permission classification notes, mark the permissions that can be deleted<br/>
+56、Add a switch for the APP in double space mode to follow external upgrade<br/>
+55、Improve the APP jni compatibility<br/>
+54、Improve compatibility with APP integration of other plug-in frameworks<br/>
+53、Add setting interface to set according to package name<br/>
+52、Increase the scope of Uri adaptation to support sharing and viewing files via Uri<br/>
+51、Fix a problem in Samsung 8.0<br/>
+50、Improve the compatibility of the app components that come with the system, better compatibility with chrome webview, google service.<br/>
+49、Improve the stability of ART<br/>
+48、Increase camera adaptation range<br/>
+47、Support internal App shortcut management under 8.0<br/>
+46、Fix exec exception<br/>
+45、Improve stability (Fix WeChat login flashback)<br/>
+44、Fix the WeChat database crash problem<br/>
+43、Fix the crash problem of some 4.4 devices<br/>
+42、Fix the background application easy to be killed, Tudou video black screen, Sina Weibo can not open, Youku twice return can not exit<br/>
+41、Increase the application keepalive mechanism, APP double space is less likely to be killed<br/>
+40、Optimize the performance of virtual engine startup<br/>
+39、Compatible with most of the reinforcement, third-party APP compatibility compared to the previous version to improve 40% +<br/>
+38、Fix the shortcut icon is incorrect under some roms<br/>
+37、Compatible with previous component StubFileProvider<br/>
+36、Adapt the virtual IMEI of some new roms<br/>
+35、Improve process initialization code to increase stability<br/>
+34、Add internal send Intent.ACTION_BOOT_COMPLETED broadcast, you can set the switch<br/>
+33、Adapt the associated google play game, support the game using google login<br/>
+32、Adapt the google service framework for android O<br/>
+31、Adapt android O shortcut<br/>
+30、Adapt to headset mode<br/>
+29、Some roms on the size of the intent limit, demo add scaling shortcut icon code<br/>
+28、Fix the bug in the case of multi space<br/>
+27、Fix the bug of MediaController in some cases<br/>
+26、Fix the error of StubFileProvider in 4.1.2<br/>
+25、Share uri processing<br/>
+24、Fix the callbacks of cross-app calls to Activity<br/>
+23、Block switch of notification bar of foreground service<br/>
+22、Companying doc<br/>
+21、Improve the CHOOSE callback of intent inside VA<br/>
+20、Android O notification bar adaptation 2<br/>
+19、 ipc framework optimization, improve the accuracy of determining the survival of the binder<br/>
+18、jni's log switch Android.mk:LOCAL_CFLAGS += -DLOG_ENABLE<br/>
+17、Confusion configuration<br/>
+16、Notification bar adaptation of Android O<br/>
+15、Fix the problem of network lag in some APPs<br/>
+14、Adaptation of android 8.0 dl_open (jni loading)<br/>
+13、Fix the bug of Huawei emui8.0<br/>
+12、Improve positioning<br/>
+11、Set the phone information, imei disguise algorithm<br/>
+10、Adapted to 8.0 a certain function (the main APP: whatsAPP)<br/>
+9、Fix internal WeChat and other applications, can not update the picture, video<br/>
+8、Demo add the installation of listening, automatically upgrade the clone mode applications<br/>
+7、Adaptations of 7.0 file provider adaptations<br/>
+6、Add positioning code<br/>
+5、The code is optimized for the architecture<br/>
+4、Different features from the open source version<br/>
+3、Solve some problems of WeChat being blocked<br/>
+2、Repaire some devices compatibility<br/>
+1、Repaire 12 small bugs<br/>
 </details>
-
 
 
 
