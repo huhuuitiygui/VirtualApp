@@ -276,15 +276,15 @@ Uri packageUri = Uri.fromFile(apkFile);
 ```
 
 ## What is the difference between the two types of Uri installation apps?
-**package协议** 安装app，只需要传入包名，不需要具体的APK路径，所以以这种协议安装的app，**相当于双开**。
+**package agreement**  To install the app, you only need to pass in the package name, not the specific APK path, so the app installed with this protocol **is equivalent to double space**.  
 
-app会随外部版本的升级而自动升级，随外部版本的卸载而自动卸载。`PackageSetting` 中的 `dynamic` 为 `true`。
+The APP is automatically upgraded as external versions are upgraded and uninstalled as external versions are uninstalled. `dynamic` in `PackageSetting` is `true`。
 
-**file协议** 则是内部安装，apk会被复制到容器内部，与外部版本完全独立. `PackageSetting` 中的 `dynamic` 为 `false`。
+**file agreement** It is an internal installation, apk is copied inside the container, completely independent from the external version. `dynamic` in `PackageSetting` is `false`。
 
-## 安装参数 VAppInstallerParams
+## Installation Parameters VAppInstallerParams
 
-### 安装标志 installFlags
+### Installation Flags installFlags
 
 FLAG | 说明
 --- | ---
