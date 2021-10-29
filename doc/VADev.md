@@ -82,18 +82,17 @@ implementation project(':lib')
 ext {
     VA_MAIN_PACKAGE_32BIT = true  // The main package is 32-bit
     VA_ACCESS_PERMISSION_NAME = "io.busniess.va.permission.SAFE_ACCESS"  // The name of the permission used by the VirtualApp component
-    VA_AUTHORITY_PREFIX = "io.busniess.va"  // VirtualApp中ContentProvider用到的authority，不能与其他app重复
-    VA_EXT_AUTHORITY_PREFIX = "io.busniess.va.ext"  // VirtualApp扩展包中ContentProvider用到的authority，不能与其他app重复
+    VA_AUTHORITY_PREFIX = "io.busniess.va"  // The authority used by ContentProvider in VirtualApp cannot be duplicated with other Apps.  
+    VA_EXT_AUTHORITY_PREFIX = "io.busniess.va.ext"  // The authority used by the ContentProvider in the VirtualApp extension package cannot be duplicated with other Apps.  
     // ...
 }
 ```
 
-### 在AndroidManifest.xml添加所需的权限
+### Add the required permissions in AndroidManifest.xml
 ```xml
 <uses-permission android:name="${VA_ACCESS_PERMISSION_NAME}" />
 ```
-权限名称必须与**VAConfig.gradle**中所声明的保持一致，可以在**build.gradle**中添加**Placeholder**来防止出错。
-
+Permission's name must be consistent with those declared in **VAConfig.gradle**, and adding **Placeholder** in **build.gradle** to prevent errors.  
 ``` gradle
 android {
     // ...
@@ -103,9 +102,9 @@ android {
 }
 ```
 
-### 创建一个Application
+### Create an Application
 
-#### 复写attachBaseContext方法，添加引导VirtualApp的代码：
+#### Override the attachBaseContext method and add the code to bootstrap the VirtualApp：
 
 ```java
     @Override
@@ -120,7 +119,7 @@ android {
 
 ```
 
-#### 这里传入了一个VirtualApp的一个配置 mConfig
+#### Here, a configuration of VirtualApp is passed in mConfig
 ```java
 private SettingConfig mConfig = new SettingConfig() {
         @Override
@@ -224,7 +223,7 @@ private SettingConfig mConfig = new SettingConfig() {
     };
 ```
 
-### 复写onCreate，添加初始化VirtualApp的代码：
+### Override onCreate and add the code of initialize the VirtualApp：
 ```java
     @Override
     public void onCreate() {
@@ -257,26 +256,26 @@ private SettingConfig mConfig = new SettingConfig() {
 
 由于VirtualApp会启动多个进程，所以Application会进入N次，不同的进程会走到VirtualInitializer不同的回调，可以在这里根据进程类型添加额外的初始化代码。
 
-## 2. 安装APP ##
+## 2. Install the APP ##
 ## API:
 ```java
 VirtualCore.java
 
  public VAppInstallerResult installPackage(Uri uri, VAppInstallerParams params);
 ```
-## 参数Uri是什么?
-Uri决定了**需要安装的apk**的来源，目前支持 package 和 file 协议。
-### Package Uri 示例:
+## What is the parameter Uri?
+Uri determines the source of **the apk that need to be installed**,and currently supports both package and file protocols.    
+### Package Uri Example:
 ```java
 Uri packageUri = Uri.parse("package:com.hello.world");
 ```
-### File Uri 示例:
+### File Uri Example:
 ```java
 File apkFile = new File("/sdcard/test.apk"); 
 Uri packageUri = Uri.fromFile(apkFile);
 ```
 
-## 两种Uri安装app有何区别?
+## What is the difference between the two types of Uri installation apps?
 **package协议** 安装app，只需要传入包名，不需要具体的APK路径，所以以这种协议安装的app，**相当于双开**。
 
 app会随外部版本的升级而自动升级，随外部版本的卸载而自动卸载。`PackageSetting` 中的 `dynamic` 为 `true`。
