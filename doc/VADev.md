@@ -124,25 +124,25 @@ android {
 private SettingConfig mConfig = new SettingConfig() {
         @Override
         public String getMainPackageName() {
-            // 主包的包名
+            // Name of the main package
             return BuildConfig.APPLICATION_ID;
         }
 
         @Override
         public String getExtPackageName() {
-            // 扩展包包名
+            // Name of extension package
             return BuildConfig.EXT_PACKAGE_NAME;
         }
 
         @Override
         public boolean isEnableIORedirect() {
-            // 是否启用IO重定向，建议开启
+            // Whether to enable IO redirection, it is recommended to enable
             return true;
         }
 
         @Override
         public Intent onHandleLauncherIntent(Intent originIntent) {
-            // 回到桌面的 Intent 拦截操作，这里把回到桌面的动作改成回到主包的BackHomeActivity页面
+            // Back to the desktop of the Intent interception operation. Here change the action that back to the desktop to return to BackHomeActivity page of the main package.  
             Intent intent = new Intent();
             ComponentName component = new ComponentName(getMainPackageName(), BackHomeActivity.class.getName());
             intent.setComponent(component);
@@ -152,7 +152,7 @@ private SettingConfig mConfig = new SettingConfig() {
 
         @Override
         public boolean isUseRealDataDir(String packageName) {
-            // data路径模拟真实路径格式，需要启用IO重定向。部分加固会校该验路径格式
+            // The data path simulates the real path format and requires IO redirection to be enabled. Some of the hardening will check the path format.  
             return false;
         }
 
