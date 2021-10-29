@@ -41,7 +41,7 @@ VA_VERSION_CODE | Used to configure the VA library version code, developers gene
 <br/>
 
 ## 3. VA core code explanation ##
-1. The code under the`com.lody.virtual.client`package runs in the VAPP Client process and is mainly used in the APP Hook part of the VA Framework to complete the HOOK processing for each service  
+1. The code under the`com.lody.virtual.client`package runs in the VAPP Client process and is mainly used in the APP Hook part of the VA Framework to complete the HOOK processing for each service.  
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_1.png)  
 2. The code under the`com.lody.virtual.server`package runs in the VA Server process. The code is mainly used in the APP Server part of the VA Framework to handle APP installation and other APP requests that are not handled by the Android system.  
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_2.png)  
@@ -142,7 +142,7 @@ private SettingConfig mConfig = new SettingConfig() {
 
         @Override
         public Intent onHandleLauncherIntent(Intent originIntent) {
-            // Back to the desktop of the Intent interception operation. Here change the action that back to the desktop to return to BackHomeActivity page of the main package.  
+            // Back to the desktop of the Intent interception operation. Here change the action that back to the desktop to return to BackHomeActivity page of the main package.    
             Intent intent = new Intent();
             ComponentName component = new ComponentName(getMainPackageName(), BackHomeActivity.class.getName());
             intent.setComponent(component);
@@ -152,64 +152,64 @@ private SettingConfig mConfig = new SettingConfig() {
 
         @Override
         public boolean isUseRealDataDir(String packageName) {
-            // The data path simulates the real path format and requires IO redirection to be enabled. Some of the hardening will check the path format.  
+            // The data path simulates the real path format and requires IO redirection to be enabled. Some of the hardening will check the path format.    
             return false;
         }
 
         @Override
         public boolean isOutsidePackage(String packageName) {
-            // 是否是外部app。 设置外部 app 对内部app看见
+            // Whether is an external App. Set the external App to be visible to the internal App.  
             return false;
         }
 
         @Override
         public boolean isAllowCreateShortcut() {
-            // 是否允许创建桌面快捷图标。建议关闭（false），自己实现桌面快捷方式
+            // Whether allow to create desktop shortcut icons. It is recommended to turn off (false) and implement desktop shortcuts by yourself.  
             return false;
         }
 
         @Override
         public boolean isHostIntent(Intent intent) {
-            // 是否由VirtualApp处理的Intent
+            // Whether the Intent is handled by VirtualApp.
             return intent.getData() != null && "market".equals(intent.getData().getScheme());
         }
 
         @Override
         public boolean isUseRealApkPath(String packageName) {
-            // 安装apk路径模拟真实路径，需要启用IO重定向。部分加固会校验该路径格式
+            // The installation apk path simulates the real path and requires IO redirection to be enabled. Some hardening will check the path format.    
             return false;
         }
 
         @Override
         public boolean isEnableVirtualSdcardAndroidData() {
-            // 启用外置存储下的 `Android/data` 目录的重定向
-            // 需要重定向支持
-            // Android 11 之后必须启用！！
+            // Enable redirection of `Android/data` directory under external storage.    
+            // Require redirection support.  
+            // Must be enabled after Android 11！！  
             return BuildCompat.isR();
         }
 
         @Override
         public String getVirtualSdcardAndroidDataName() {
-            // 设置外置存储下的 `Android/data` 目录的重定向路径
+            // Set the redirect path for  `Android/data` directory under external storage.  
             // /sdcard/Android/data/com.example.test/ ==>> /sdcard/{VirtualSdcardAndroidDataName}/{user_id}/Android/data/com.example.test/
             return "Android_va";
         }
 
         @Override
         public FakeWifiStatus getFakeWifiStatus() {
-            // 修改wifi信息。 null 则不修改
+            // Modify the wifi information. null is not modified.  
             return null;
         }
 
         @Override
         public boolean isHideForegroundNotification() {
-            // 隐藏前台消息，不建议隐藏
+            // Hide foreground messages, not recommended to hide.  
             return false;
         }
 
         @Override
         public boolean isOutsideAction(String action) {
-            // 外部 Intent 的 action 事件响应
+            // Action event response of external Intent.  
             return MediaStore.ACTION_IMAGE_CAPTURE.equals(action)
                 || MediaStore.ACTION_VIDEO_CAPTURE.equals(action)
                 || Intent.ACTION_PICK.equals(action);
@@ -217,7 +217,7 @@ private SettingConfig mConfig = new SettingConfig() {
 
         @Override
         public boolean isDisableDrawOverlays(String packageName) {
-            // 禁用 VAPP 的顶层覆盖（浮窗）。
+            // Disable top-level overlay (floating window) for VAPP.  
             return false;
         }
     };
@@ -232,29 +232,29 @@ private SettingConfig mConfig = new SettingConfig() {
         virtualCore.initialize(new VirtualCore.VirtualInitializer() {
             @Override
             public void onMainProcess() {
-                // 主进程回调
+                // Main process callback
             }
 
             @Override
             public void onVirtualProcess() {
-                // 虚拟App进程回调
+                // Virtual App process callback
             }
 
             @Override
             public void onServerProcess() {
-                // 服务端进程回调
+                // Server-side process callback
             }
 
             @Override
             public void onChildProcess() {
-                // 其他子进程回调
+                // Other sub-process callback
             }
         });
     }
 
 ```
 
-由于VirtualApp会启动多个进程，所以Application会进入N次，不同的进程会走到VirtualInitializer不同的回调，可以在这里根据进程类型添加额外的初始化代码。
+Since VirtualApp will start multiple processes, Application will enter N times, and different processes will go to different callbacks of VirtualInitializer, where additional initialization code can be added depending on the process type.  
 
 ## 2. Install the APP ##
 ## API:
@@ -286,31 +286,30 @@ The APP is automatically upgraded as external versions are upgraded and uninstal
 
 ### Installation Flags installFlags
 
-FLAG | 说明
+FLAG | Instruction
 --- | ---
-FLAG_INSTALL_OVERRIDE_NO_CHECK | 允许覆盖安装
-FLAG_INSTALL_OVERRIDE_FORBIDDEN | 禁止覆盖安装
-FLAG_INSTALL_OVERRIDE_DONT_KILL_APP | 覆盖安装不kill已经启动的APP
+FLAG_INSTALL_OVERRIDE_NO_CHECK | Allow overlay installation
+FLAG_INSTALL_OVERRIDE_FORBIDDEN | Prohibit overlay installation
+FLAG_INSTALL_OVERRIDE_DONT_KILL_APP | Overwrite installation, and not kill the already launched APP
 
-### 安装模式 mode
+### Installation Mode mode
 
-FLAG | 说明
+FLAG | Instruction
 --- | ---
-MODE_FULL_INSTALL | 完整安装
-MODE_INHERIT_EXISTING | 已安装的的安装模式。预留
+MODE_FULL_INSTALL | Complete installation
+MODE_INHERIT_EXISTING | The installed installation mode of the installed. Reserve.  
 
-预留参数，暂时未使用。目前不管设置哪种都一样。
+Reserve parameters, not used for now. Currently the same no matter which one is set.  
 
 ### cpuAbiOverride
 
-指定app的abi。特殊需求下，可以强制指定app在指定abi下运行。不指定的情况下默认根据`系统规则`来决定运行的abi。
-
-可选参数：
+Specify the abi of the App. You can force the App to run under the specified abi in special need. If you don't specify, the default abi is determined by `system rules`.  
+Optional parameters：
 * armeabi
 * armeabi-v7a
 * arm64-v8a
 
-### 双开app实例代码：
+### Double space App example code：
 ```java
 VAppInstallerParams params = new VAppInstallerParams(VAppInstallerParams.FLAG_INSTALL_OVERRIDE_NO_CHECK);
 VAppInstallerResult result = VirtualCore.get().installPackage(Uri.parse("package:com.tencent.mobileqq"), params);
@@ -319,7 +318,7 @@ if (result.status == VAppInstallerResult.STATUS_SUCCESS) {
 }
 ```
 
-### 从sd卡安装apk实例代码：
+### Install apk from sd card example code：
 ```java
 VAppInstallerParams params = new VAppInstallerParams(VAppInstallerParams.FLAG_INSTALL_OVERRIDE_NO_CHECK);
 VAppInstallerResult result = VirtualCore.get().installPackage(Uri.fromFile(new File("/sdcard/test.apk")), params);
@@ -328,8 +327,8 @@ if (result.status == VAppInstallerResult.STATUS_SUCCESS) {
 }
 ```
 
-### 安装Split apk
-先安装base包，然后再安装所有split包即可。
+### Install Split apk
+Just install the base package firstly, and then install all the split packages.  
 ```java
 File dir = new File("/sdcard/YouTube_XAPK_Unzip/");
 VAppInstallerParams params = new VAppInstallerParams(VAppInstallerParams.FLAG_INSTALL_OVERRIDE_NO_CHECK);
@@ -348,62 +347,62 @@ for (File file : dir.listFiles()) {
 
 
 
-## 3. 启动及管理Application ##
-# 启动App
+## 3. Launch and manage Application ##
+# Launch App
 
 ```java
 // class VActivityManager
 public boolean launchApp(final int userId, String packageName)
 ````
-实例代码：
+Example code：
 ```java
 VActivityManager.get().launchApp(0, "com.tencent.mobileqq");
 ```
 
-# 杀死App
+# Kill App
 ```java
 // class VActivityManager
 public void killAppByPkg(String pkg, int userId)
 public void killAllApps()
 ```
-实例代码：
+Example code：
 ```java
-// 杀死userid为0的QQ程序进程
+// Kill the QQ program process with userid 0
 VActivityManager.get().killAppByPkg("com.tencent.mobileqq", 0);
 
 ```
 
 ```java
-// 杀死所有App进程
+// Kill all App processes
 VActivityManager.get().killAllApps();
 ```
 
-# 卸载App
+# Uninstall App
 ```java
 // class VirtualCore
 public boolean uninstallPackageAsUser(String pkgName, int userId)
 public boolean uninstallPackage(String pkgName)
 ```
-实例代码：
+Example code：
 ```java
-// 卸载userid为0的QQ程序
+// Uninstall the QQ program with userid 0
 VirtualCore.get().uninstallPackageAsUser("com.tencent.mobileqq", 0);
-// 卸载所有user下安装的QQ程序
+// Uninstall the QQ programs installed under all user
 VirtualCore.get().uninstallPackage("com.tencent.mobileqq");
 ```
 
-# 查询已安装的App
+# Check the installed Apps
 ```java
 // class VirtualCore
 public List<InstalledAppInfo> getInstalledApps(int flags)
 ```
 
-## 4. Java Hook使用 ##
-VirtualApp中实现了一套Xposed接口,用户只要会使用Xposed就可以做到原本需要系统内置Xposed才能做到的事情.
-但是用户也需要明白,VA中Xposed的作用域是VA这个APP中的,不能越权控制系统或其他外部App.
+## 4. Java Hook Usage ##
+VirtualApp implements a set of Xposed interface. Users who can use Xposed can do things that originally need the system built-in Xposed to do.  
+However, users also need to understand that the scope of Xposed in VA is within the VA app. Cannot overstep the authority to control system or other external apps.  
 
 
-VA中提供了一个App创建启动的回调接口`com.lody.virtual.client.core.AppCallback`,接口如下:
+VA provides a callback interface of App creation and launch `com.lody.virtual.client.core.AppCallback`, the interfaces are as follows:
 ```java
 public interface AppCallback {
     void beforeStartApplication(String packageName, String processName, Context context);
@@ -414,33 +413,33 @@ public interface AppCallback {
 }
 ```
 
-> 接口说明:
+> Interface Instruction:
 
-名称 | 说明
+Name | Instruction
 ---- | ---
-beforeStartApplication | APP启动之前,创建之后
-beforeApplicationCreate | APP被创建之前,Application已经准备完毕,Application.OnCreate未执行
-afterApplicationCreate | APP被创建之后,Application.OnCreate已被执行
+beforeStartApplication | Before APP launch, after creation
+beforeApplicationCreate | Before the APP is created, application has already prepared, Application.OnCreate is not executed.
+afterApplicationCreate | After the APP is created, Application.OnCreate is executed.
 
 <br/>
 
->参数说明:
+>Parameter Instruction:
 
-名称 | 说明
+Name | Instruction
 ---- | ---
-packageName | VAPP的包名
-processName | VAPP的进程名
-context | VAPP的Application context
-application | VAPP的Application
+packageName | Name of VAPP
+processName | Process name of VAPP
+context | Application context of VAPP
+application | Application of VAPP
 
 <br/>
 
-> 注: APP的创建指的是`Application`被创建.
+> Note: APP creation means that`Application`is created.
 
-接口有了,接下来就是怎么使用了.查看[`VirualApp进程说明`](VirualApp进程说明.md),可以知道,
-我们只需要在`VAPP进程`回调里(`onVirtualProcess`) 设置App回调 `AppCallback` 就可以达到目的.
+The interface is there, and the next step is how to use it. View[`VirualApp Process Instruction`](VirualApp Process Instruction.md), we kan see  
+We just need to put in the`VAPP process`callback(`onVirtualProcess`) set App callback `AppCallback` and then achieve the purpose.
 
-> 宿主Application代码,参考[io/busniess/va/App.java](https://github.com/asLody/VirtualApp-Priv/blob/v2.1/VirtualApp/app/src/main/java/io/busniess/va/App.java)
+> Host Application code, please refer [io/busniess/va/App.java](https://github.com/asLody/VirtualApp-Priv/blob/v2.1/VirtualApp/app/src/main/java/io/busniess/va/App.java)
 
 ```java
 @Override
@@ -450,14 +449,14 @@ application | VAPP的Application
         virtualCore.initialize(new VirtualCore.VirtualInitializer() {
             @Override
             public void onVirtualProcess() {
-                // 设置VAPP启动回调
+                // Set VAPP launch callback
                 virtualCore.setAppCallback(new MyComponentDelegate());
             }
         });
     }
 ```
 
-> [MyComponentDelegate](https://github.com/asLody/VirtualApp-Priv/blob/v2.1/VirtualApp/app/src/main/java/io/busniess/va/delegate/MyComponentDelegate.java)类代码
+> [MyComponentDelegate](https://github.com/asLody/VirtualApp-Priv/blob/v2.1/VirtualApp/app/src/main/java/io/busniess/va/delegate/MyComponentDelegate.java)Class Code
 
 ```java
 public class MyComponentDelegate implements AppCallback {
@@ -484,23 +483,22 @@ public class MyComponentDelegate implements AppCallback {
 }
 ```
 
-上面示例中,已经添加了一个Xposed的使用案例.Xposed的入口是一个`IXposedHookLoadPackage`的实例,他提供了一个`void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam)`的接口,有一个`XC_LoadPackage.LoadPackageParam`的参数.这里我们虽然不能完全一一对用,但是也完全够用了.`loadPackageParam.classsload`可以用`context.getClassLoader()`或者`application.getClassLoader()`都是可以的.后续`XposedHelpers`,`XposedBridge`原来怎么用,这里也一样使用.
+In the above example, a use case for Xposed has been added. The entry point of Xposed is an example of `IXposedHookLoadPackage`, it provides an interface of `void handleLoadPackage(XC_LoadPackage.LoadPackageParam loadPackageParam)`. There is one parameter of `XC_LoadPackage.LoadPackageParam`. Here we can't use it exactly one by one, but it's enough. `loadPackageParam.classsload`can use  `context.getClassLoader()` or `application.getClassLoader()` both are ok. Afterwards `XposedHelpers`, the same way how to use`XposedBridge`, is also used here.  
 
 
 
-## 5. Native Hook使用 ##
-对于ARM 32和ARM 64的Hook，只需要引入头文件```CydiaSubstrate.h```即可,Hook API:  
+## 5. Native Hook Usage ##
+For ARM 32 and ARM 64 Hooks, only the header files ```CydiaSubstrate.h``` need to be introduced, i.e. the Hook API:  
 ```MSHookFunction(Type_ *symbol, Type_ *replace, Type_ **result)```  
->参数说明:
+>Parameter Instruction:
 
-名称 | 说明
+Name | Instruction
 ---- | ---
-symbol | 要Hook的地址  
-replace | 你自定义的hook函数
-result | 被hook函数的备份
+symbol | Address to Hook  
+replace | Your custom Hook function
+result | Backups of hooked function
 <br/>
-参考```syscall_hook.cpp```代码
-
+Refer ```syscall_hook.cpp``` code
 ```cpp
 auto is_accessible_str = "__dl__ZN19android_namespace_t13is_accessibleERKNSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE";
 void *is_accessible_addr = getSym(linker_path, is_accessible_str);
@@ -509,7 +507,7 @@ if (is_accessible_addr) {
 }
 ```
 
-在`MSHookFunction`内部会自动判断当前是ARM32还是ARM64：
+Within `MSHookFunction`, it automatically determines whether the current is ARM32 or ARM64：
 
 
 ```cpp
@@ -530,7 +528,7 @@ _extern void MSHookFunction(void *symbol, void *replace, void **result) {
 </br>
 </br>
 
-[其他更多的开发指导请见VA私有库Wiki](https://github.com/asLody/VirtualApp-Priv/wiki)
+[Additional development guidance can be found on the VA Private Library Wiki](https://github.com/asLody/VirtualApp-Priv/wiki)
 
 </br>
 </br>
