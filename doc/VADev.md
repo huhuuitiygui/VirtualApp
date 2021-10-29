@@ -37,51 +37,51 @@ VA_ACCESS_PERMISSION_NAME | Used to configure the permission names of the 4 majo
 VA_AUTHORITY_PREFIX | Used to configure the authorities of ContentProvider in the VA main packag
 VA_EXT_AUTHORITY_PREFIX | Used to configure the authorities of the ContentProvider in the VA plug-in package
 VA_VERSION | Used to configure the VA library version, developers generally do not need to care
-VA_VERSION_CODE | 用于配置VA库版本代码，开发者一般不需要关心
-<br/>Used to configure the VA library version code, developers generally do not need to care
+VA_VERSION_CODE | Used to configure the VA library version code, developers generally do not need to care
+<br/>
 
-## 3. VA核心代码解释 ##
-1. `com.lody.virtual.client`包下的代码运行在VAPP Client进程中，主要用于VA Framework中的APP Hook部分，完成对各个Service的HOOK处理  
+## 3. VA core code explanation ##
+1. The code under the`com.lody.virtual.client`package runs in the VAPP Client process and is mainly used in the APP Hook part of the VA Framework to complete the HOOK processing for each service  
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_1.png)  
-2. `com.lody.virtual.server`包下的代码运行在VA Server进程中，代码主要用于VA Framework中的APP Server部分，实现处理APP安装以及其他不给Android系统处理的APP请求  
-![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_2.png)
-3. `mirror`包下的代码主要用于对系统隐藏类的引用，属于工具类，减少大量反射代码的编写  
-![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_3.png)
-4. `cpp`包下的代码进行在VAPP Client进程中，主要用于VA Native部分，实现IO重定向和jni函数HOOK。其中：  
-	- `substrate`中实现了针对arm32和arm64的hook  
-	- `vfs.cpp`中实现了VA的虚拟文件系统，用于控制APP文件访问限制  
-	- `syscall_hook.cpp`中实现了对IO的Hook  
+2. The code under the`com.lody.virtual.server`package runs in the VA Server process. The code is mainly used in the APP Server part of the VA Framework to handle APP installation and other APP requests that are not handled by the Android system.  
+![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_2.png)  
+3.The code under the `mirror`package is mainly used for references to the system's hidden classes, and belongs to the tool class, reducing a lot of reflection code's writing.     
+![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_3.png)  
+4.The code under the `cpp`package is carried out in the VAPP Client process and is mainly used in the VA Native part. Implement IO redirection and jni function HOOK. Among them：  
+	- `substrate`implements hook for arm32 and arm64  
+	- `vfs.cpp`implements VA's virtual file system for controlling APP file access restrictions 
+	- `syscall_hook.cpp`implements Hook for IO  
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_4.png)  
-5. `DelegateApplicationExt.java`运行在VA Host Plugin进程中，用于VA插件包，实现了对主包代码的加载执行  
+5.`DelegateApplicationExt.java`runs in the VA Host Plugin process，used in  the VA plug-in package,  implementing the loading and execution to the main package code.   
 ![](https://cdn.jsdelivr.net/gh/xxxyanchenxxx/temp@1.0/doc/3_5.png)  
 
 </br></br>
-**下面开始第二部分，VA SDK使用介绍：**
+**The following is the second part, the introduction of using VA SDK：**
 
-## 1. VA工程接入 ##
-### 用Android Studio打开VirtualApp-Priv项目
+## 1. VA Project Integration ##
+### Open VirtualApp-Priv project with Android Studio
 
-可见多个模块:
+Multiple modules can be seen:
 * app
 * app-ext
 * lib
 * lib-ext
 
-其中**lib**和**lib-ext**属于VirtualApp`核心库`以及`扩展库`，**app**和**app-ext**则属于`示例app`。
+Among them, **lib** and **lib-ext** belong to the VirtualApp`core library `and `extensions`，while **app** and **app-ext** belong to the`sample app`.  
 
 
 
-### 创建自己的App
-新建一个application类型的module，并添加lib模块为依赖
+### Create your own App
+Create a module of type application, and add the lib module as a dependency
 ```gradle
 implementation project(':lib')
 ```
 
-### 根据需求修改VAConfig.gradle：
+### Modify VAConfig.gradle according to demand：
 ```gradle
 ext {
-    VA_MAIN_PACKAGE_32BIT = true  // 主包为32位
-    VA_ACCESS_PERMISSION_NAME = "io.busniess.va.permission.SAFE_ACCESS"  // VirtualApp组件用到的权限名称
+    VA_MAIN_PACKAGE_32BIT = true  // The main package is 32-bit
+    VA_ACCESS_PERMISSION_NAME = "io.busniess.va.permission.SAFE_ACCESS"  // The name of the permission used by the VirtualApp component
     VA_AUTHORITY_PREFIX = "io.busniess.va"  // VirtualApp中ContentProvider用到的authority，不能与其他app重复
     VA_EXT_AUTHORITY_PREFIX = "io.busniess.va.ext"  // VirtualApp扩展包中ContentProvider用到的authority，不能与其他app重复
     // ...
